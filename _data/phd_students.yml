@@ -1,143 +1,97 @@
-- name: Abdulah Fawaz
-  photo: abdulah.jpg
+- name: Edward Cefai
+  photo: LUCAS_Logo.png
+  info: 
+  email: e.cefai@lboro.ac.uk
+  number_educ: 2
+  education1: BA, MSc, MRes in 
+  education2:  
+  education3:
+  education4:
+
+- name: Tim Glover
+  photo: LUCAS_Logo.png
   info: Apr 2019
-  email: abdulah.fawaz(at)kcl.ac.uk
+  email: t.glover@lboro.ac.uk
   number_educ: 2
-  education1: BA, MSc, MRes in Quantum Physics & Quantum Computing
-  education2: Geometric deep learning methods for the neonatal cortical surface
+  education1: BA, MSc, MRes in 
+  education2: Geometric deep learning methods 
   education3:
   education4:
 
-- name: Suryava Bhattacharya
-  photo: Suryava.jpg
+- name: Zijiang Ge
+  photo: LUCAS_Logo.png
   info: Oct 2019
-  email:  suryava.bhattacharya(at)kcl.ac.uk
+  email:  z.ge@lboro.ac.uk
   number_educ: 2
-  education1: MEng in Biomedical Engineering
-  education2: Quantitative mapping of developing fetal organs using dynamic MRI and artificial neural networks
+  education1: MEng in 
+  education2: 
   education3: 
   education4:
   
-- name: Lindsay Munroe
-  photo: Lindsay.jpg
-  info: Oct 2019
-  email:  lindsay.munroe(at)kcl.ac.uk
+- name: Yimeng Li
+  photo: LUCAS_Logo.png
+  info: 
+  email:  y.li12@lboro.ac.uk
   number_educ: 2
-  education1: BSc Mathematics, MSc Mathematics & Theoretical Computer Science
-  education2: Mining for iron in the brain -  a deep learning approach
+  education1: 
+  education2: 
   education3: 
   education4:
 
-- name: Mariana Da Silva
-  photo: mariana.jpg
-  info: Jan 2020
-  email: mariana.da_silva(at)kcl.ac.uk
+- name: Ben Marshall
+  photo: LUCAS_Logo.png
+  info: 
+  email: b.sullivan@lboro.ac.uk
   number_educ: 2
-  education1: BSc, MSc in Biomedical Engineering & Biophysics
-  education2: Building sensitive models of cognition using interpretable deep learning
+  education1: 
+  education2: 
   education3:
   education4:
 
-- name: Logan Williams
-  photo: Logan.jpg
-  info: Mar 2020
-  email:  logan.williams(at)kcl.ac.uk
+- name: Ben Sullivan
+  photo: LUCAS_Logo.png
+  info: 
+  email:  b.sullivan@lboro.ac.uk
   number_educ: 2
-  education1: BSc Biomedical Science, BMedSc(Hons) Neonatal Medicine, MBChB
-  education2: Multimodal cortical parcellation in the UK Biobank
+  education1: 
+  education2: 
   education3: 
   education4:
   
-- name: Yilan Dong
-  photo: Yilan.jpg
-  info: Oct 2020
-  email:  yilan.dong(at)kcl.ac.uk
+- name: Siyang Tang
+  photo: LUCAS_Logo.png
+  info: 
+  email:  s.tang@lboro.ac.uk
   number_educ: 2
-  education1: BSc in Biomedical Engineering, MSc Healthcare Technologies
-  education2: Machine learning to uncover the early origins of neurodevelopmental disorders
+  education1: 
+  education2: 
   education3: 
   education4:  
 
-- name: Hai Le
-  photo: Hai.jpeg
-  info: Oct 2020
-  email:  le.hai(at)kcl.ac.uk
+- name: Xinming Wang
+  photo: LUCAS_Logo.png
+  info: 
+  email:  x.wang@lboro.ac.uk
   number_educ: 2
-  education1: BSc Neuroscience
-  education2: Characterising abnormal early brain development and links to neuropsychiatric disorders using diffusion MRI and machine learning
+  education1: 
+  education2: 
   education3: 
   education4: 
   
-- name: Simon Dahan
-  photo: Simon.jpg
-  info: Oct 2020
-  email:  simon.dahan(at)kcl.ac.uk
+- name: Yalei Yu
+  photo: LUCAS_Logo.png
+  info: Oct 2022
+  email:  y.yu2@lboro.ac.uk
   number_educ: 2
-  education1: MEng Computer Science, MSc in Artificial Intelligence & Machine Learning
-  education2: Spatiotemporal deep learning on cortical fMRI data to predict brain states for preterm infants.
+  education1: MSc in Traffic information engineering and control
+  education2: Dual control for exploitation and exploration with applications on industrial robots.
   education3: 
   education4: 
   
-- name: Paula Ramirez Gilliland
-  photo: paularamirez.jpg
-  info: Oct 2020
-  email:  paula.ramirez_gilliland(at)kcl.ac.uk
-  number_educ: 2
-  education1: MPhys Physics & Astrophysics, University of Sussex
-  education2: Deep learning for diagnosis of congenital heart disease in fetus using MRI and ultrasound.
-
-- name: Zhenshan Xie
-  photo: zhenshan_xie.jpg
-  info: Oct 2021
-  email: zhenshan.xie(at)kcl.ac.uk
-  number_educ: 2
-  education1: BEng Communication Engineering
-  education2: Predicting Onset of Dementia through Flow-Based Generative modeling
- 
-- name: Diego Fajardo Rojas
-  photo: diego_fajardo.jpg
-  info: Oct 2021
-  email: diego.fajardo_rojas(at)kcl.ac.uk
-  number_educ: 2
-  education1: BSc, MSc Mathematics
-  education2: Predicting preterm birth from MRI using deep learning
-
-- name: Yourong Guo
-  photo: Yourong_Guo.jpg
-  info: Oct 2021
-  email: yourong.guo(at)kcl.ac.uk
-  number_educ: 2
-  education1: BEng, MEng in Biomedical Engineering
-  education2: Focal cortical dysplasias detection in childhood epilepsy 
-
-- name: Saga Masui
-  photo: Saga_Masui.jpeg
+- name: Zheyu Zhang
+  photo: LUCAS_Logo.png
   info: Oct 2022
-  email: saga.masui(at)kcl.ac.uk
+  email:  z.zhang8@lboro.ac.uk
   number_educ: 2
-  education1: BSc in Physics & Philosophy
-  education2: Generative modelling of microstructural development of the cerebral cortex
-
-- name: Helena Sousa
-  photo: hs-id.jpg
-  info: Oct 2022
-  email: helena.sousa(at)kcl.ac.uk
-  number_educ: 2
-  education1: BSc, MSc in Biomedical Engineering & Biophysics
-  education2: Using deep learning to explore fetal brain development
-
-- name: Jiaxin Xiao
-  photo: JiaxinXiao.jpg
-  info: Oct 2022
-  email: jiaxin.xiao(at)kcl.ac.uk
-  number_educ: 2
-  education1: BSc in Biological Sciences, MRes in Medical Imaging Sciences
-  education2: Normative modeling of fetal cortical development
-
-- name: Aakash Saboo
-  photo: AakashSaboo.jpg
-  info: Oct 2022
-  email: aakash.saboo(at)kcl.ac.uk
-  number_educ: 2
-  education1: BTech in Industrial Engineering
-  education2: Deep generative models of fetal brain development
+  education1: 
+  education2: 
