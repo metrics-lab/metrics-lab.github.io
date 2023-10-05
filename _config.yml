@@ -6,13 +6,13 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: LUCAS
+title: The METRICS Lab
 email:
 description: > # this means to ignore newlines until "baseurl:"
-  This is group website for LUCAS - Loughborough University Centre for Autonomous Systems, Lboro Uni
+  This is group website for METRICS - Machine Learning for Translational Imaging in Development and Cognition, King's College London
 baseurl: ""
-url: "https://yaleiyu.github.io"
-keywords: "LUCAS, Loughborough University, Decision Making, Advanced Automation Control"
+url: "https://metrics-lab.github.io"
+keywords: "METRICS, King's College, Deep learning, MRI, brain, Human Connectome Project, Developing Human Connetome Project"
 
 include:
   - .htaccess
