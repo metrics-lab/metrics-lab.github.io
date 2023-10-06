@@ -1,18 +1,20 @@
 ---
-title: "METRICS Lab - Research"
+title: "LUCAS - Research"
 layout: textlay
-excerpt: "METRICS Lab -- Research"
+excerpt: "LUCAS -- Research"
 sitemap: false
 permalink: /research/
 ---
 
 # Research
 
-### Dr. Emma Robinson
+### Prof Chen
 <div markdown style="text-align: justify">
-Dr Robinson's research focuses on the development of computational methods for brain imaging analysis,  and covers a wide range of image processing and machine learning topics. Most notably, her software for cortical surface registration [Multimodal Surface Matching](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/MSM) (MSM) has been central to the development of the Human Connectome Project’s [Multimodal parcellation of the human cortex](https://www.nature.com/articles/nature18933), and has featured as a central tenet in the [HCP’s paradigm for neuroimage analysis](https://www.nature.com/articles/nn.4361). This work has been widely reported in the media including Wired, Scientific American, and Wall Street Journal. 
+Prof Chen (Fellow, IEEE) currently holds the Chair in Autonomous Vehicles with the Depart- ment of Aeronautical and Automotive Engineer- ing, Loughborough University, Loughborough, U.K. He has a considerable experience in control, sig- nal processing, and artificial intelligence, and their applications in robots, aerospace, and automotive systems. He has contributed significantly to a num- ber of areas, including disturbance-observer-based control, model predictive control, and unmanned aerial vehicles. He is also a Chartered Engineer
+and a fellow of the Institution of Mechanical Engineers and the Institution of Engineering and Technology, U.K. He also holds a five years EPSRC Established Career Fellowship. He has authored or coauthored 300 papers and two books.
 
-Current research interests are focused on the application of advanced machine learning, and particularly deep learning to diverse data sets combining multi-modality imaging data with genetic samples. We are particularly interested in building sensitive models of cognitive development and developmental outcome for prematurely born babies from data collected for the [Developing Human Connectome](http://www.developingconnectome.org/project/) Project (dHCP).
+<iframe width="560" height="315" src="https://www.youtube.com/embed/C3fG6YDhtRI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
  </div>
  <br>
  <br>

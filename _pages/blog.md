@@ -3,7 +3,7 @@ title: "LUCAS - Projects"
 layout: gridlay
 excerpt: "LUCAS -- Projects"
 sitemap: false
-permalink: /blogs/
+permalink: /projects/
 ---
 # Projects
 

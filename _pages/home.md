@@ -3,7 +3,7 @@ title: "LUCAS - Home"
 layout: homelay
 excerpt: "LUCAS"
 sitemap: false
-permalink: /
+permalink: /home/
 ---
 <div markdown style="text-align: justify">
 Welcome to the website for Loughborough University Centre for Autonomous System (LUCAS), based at [Loughborough University](https://www.lboro.ac.uk/). LUCAS is a specialised research group, focusing on research in aerospace control. Comprised of both students and research professionals, LUCAS has strong links to many industrial partners and primarily works on research for unmanned applications. In addition to industry-backed research, a large part of LUCAS is post-graduate study, allowing for an investigation into areas not currently commercially explored.

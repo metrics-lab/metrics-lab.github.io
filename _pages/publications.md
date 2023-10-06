@@ -1,14 +1,14 @@
 ---
-title: "METRICS Lab - Publications"
+title: "LUCAS - Publications"
 layout: gridlay
-excerpt: "METRICS Lab -- Publications."
+excerpt: "LUCAS -- Publications."
 sitemap: false
 permalink: /publications/
 ---
 
 
 # Publications
-For a complete publication list, please see [Dr Robinson's](https://scholar.google.co.uk/citations?user=WXAAOb0AAAAJ&hl=en), or [Dr Deprez'](https://scholar.google.co.uk/citations?user=qtojUaIAAAAJ&hl=en) Google Scholar.
+For a complete publication list, please see [Prof Chen's](https://scholar.google.co.uk/citations?user=WXAAOb0AAAAJ&hl=en) Google Scholar.
 <br>
 <br>
 ## Highlights
