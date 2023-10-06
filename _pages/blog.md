@@ -1,13 +1,13 @@
 ---
-title: "METRICS Lab - Blog"
+title: "LUCAS - Projects"
 layout: gridlay
-excerpt: "METRICS Lab -- Blog"
+excerpt: "LUCAS -- Projects"
 sitemap: false
-permalink: /blogs/
+permalink: /projects/
 ---
-# Blogs
+# Projects
 
-This is a collection of blog posts written by members of the METRICS group, to improve the accessbility of our research. All feedback is welcome and can be addressed to the author of the blog. 
+This is a collection of projects of the LUCAS group.
 
 <ul class="posts">
   {% for post in site.posts %}

@@ -1,5 +1,5 @@
 ---
-title: "METRICS Lab - Vacancies"
+title: "LUCAS - Vacancies"
 layout: textlay
 excerpt: "Openings"
 sitemap: false
@@ -14,11 +14,9 @@ Sorry, we don't currently have any RA openings.
 
 ### Applications for PhD and Postdoc positions
 
-PhD programs are opening later this year, get in touch if you are interested in working on AI problems for medical imaging and computational neuroscience.
+PhD programs are opening later this year, get in touch if you are interested in working on advanced automation, decision-making, machine learning, and computer vision.
 
-[AI-driven simulations of brain development](https://kcl-mrcdtp.com/project/ai-driven-simulations-of-brain-development/) Combining computational neuroscience with biomedical engineering we will build simulations of neurological processes and use these to predict which babies are most at risk of neurodevelopmental disorders
-
-[Commonwealth PhD Scholarships for the least developed countries and fragile states](https://www.kcl.ac.uk/study-legacy/funding/commonwealth-phd-scholarships-for-least-developed-countries-and-fragile-states) if you think this applies to you get in touch 
+[PhD Scholarships](https://www.lboro.ac.uk/study/postgraduate/fees-funding/research-degree-funding/china-scholarship-council/) if you think this applies to you get in touch 
 
 <br>
 <br>

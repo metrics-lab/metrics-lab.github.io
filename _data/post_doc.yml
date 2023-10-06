@@ -1,29 +1,59 @@
-- name: Dr. Irina Grigorescu
-  photo: irina1.jpg
-  info: Research Assistant
-  email: irina.grigorescu(at)kcl.ac.uk
+- name: Dr. Shengkai Guo
+  photo: LUCAS_Logo.png
+  info: Research Associate
+  email: s.guo2@lboro.ac.uk
   number_educ: 2
-  education1: PhD in Biomedical Engineering
-  education2: Deep learning for motion correction of fetal MRI
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4:
+
+- name: Dr. Rohit Nanavati
+  photo: LUCAS_Logo.png
+  info: Research Associate
+  email: r.nanavati@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4:
+
+- name: Dr. Pramod Pashupathy
+  photo: LUCAS_Logo.png
+  info: Research Associate
+  email: p.pashupathy@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4: 
+  
+- name: Dr. Guoqiang Tan
+  photo: LUCAS_Logo.png
+  info: Research Associate
+  email: g.tan@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: DCEE
   education3:
   education4:
 
-- name: Dr. Mohamed Suliman
-  photo: mohamed.jpg
+- name: Dr. Toa Tran
+  photo: LUCAS_Logo.png
   info: Research Associate
-  email:  mohamed.suliman(at)kcl.ac.uk
+  email: x.tran@lboro.ac.uk  
   number_educ: 2
-  education1: PhD in Electrical & Electronic Engineering
-  education2: Deep learning algorithms for precision registration of multimodal brain scans
+  education1: PhD in 
+  education2: 
   education3: 
   education4: 
 
-- name: Dr. Arnaud Boutillon
-  photo: arnaud.jpg
+- name: Dr. Yuefei Zuo
+  photo: LUCAS_Logo.png
   info: Research Associate
-  email: arnaud.boutillon(at)kcl.ac.uk
+  email: y.zuo@lboro.ac.uk  
   number_educ: 2
-  education1: PhD in Medical Image Analysis
-  education2: Brain conductivity measurements and 3D+T fetal cardiac MRI
+  education1: PhD in 
+  education2: 
   education3: 
-  education4: 
+  education4:

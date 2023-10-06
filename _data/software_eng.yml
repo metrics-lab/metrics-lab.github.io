@@ -1,7 +1,69 @@
-- name: Dr. Renato Besenczi 
-  photo: RB_profile.jpg
-  info: Research Software Engineer
-  email: renato.besenczi(at)kcl.ac.uk
+- name: Dr. Matthew Coombes
+  photo: LUCAS_Logo.png
+  info: 
+  email: m.j.coombes@lboro.ac.uk
   number_educ: 2
-  education1: PhD in Computer Science 
-  education2: Cortical Surface Registration for Translational Neuroimaging
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4: 
+
+- name: Dr. Jingjing Jiang
+  photo: LUCAS_Logo.png
+  info: 
+  email: j.jiang2@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4:
+
+- name: Dr. James Knowles
+  photo: LUCAS_Logo.png
+  info: 
+  email: J.A.C.Knowles@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4:
+
+- name: Dr. Chengyuan Liu
+  photo: LUCAS_Logo.png
+  info: 
+  email: c.liu10@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4: 
+
+- name: Prof. Cunjia Liu
+  photo: LUCAS_Logo.png
+  info: 
+  email: c.liu5@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3:
+  education4:
+
+- name: Dr. Thomas Steffen
+  photo: LUCAS_Logo.png
+  info: 
+  email: t.steffen@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4:
+  
+- name: Dr. Jun Yang
+  photo: LUCAS_Logo.png
+  info: 
+  email:  j.yang3@lboro.ac.uk
+  number_educ: 2
+  education1: PhD in 
+  education2: 
+  education3: 
+  education4:   
