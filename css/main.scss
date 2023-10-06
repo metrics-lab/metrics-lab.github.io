@@ -94,6 +94,6 @@ firstp {
 
 
 button {
-	font-size: calc(50 / 16)*1;
+	font-size: math.div(50, 16)*10px;
 	padding: 5px 10px;
   }
