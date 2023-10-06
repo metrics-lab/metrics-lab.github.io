@@ -51,13 +51,13 @@ Please check out our [GitHub page](https://github.com/metrics-lab) and [Resource
 <br>
 <br>
 <figure class="fourth">
-  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/Logo_AMS.png" style="height: 80px; ; padding-right:28px">
-  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/Logo_Wellcome.jpeg" style="height: 80px; padding-right:28px">
-  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/Logo_ERC.jpg" style="height: 80px; padding-right:28px">
-  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/Logo_Kings.png" style="height: 80px; padding-right:28px">
+  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/ukri_epsrc_standard_logo.png" style="height: 45px; ; padding-right:10px">
+  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/ukri-innovate-uk-standard-logo.png" style="height: 45px; padding-right:10px">
+  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/newton_fund.jpeg" style="height: 45px; padding-right:10px">
+  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/dstl.png" style="height: 45px; padding-right:10px">
 </figure>
 
-We are grateful for funding from Academy of Medical Sciences, [Springboard Awards](https://acmedsci.ac.uk/grants-and-schemes/grant-schemes/springboard) and [Wellcome](https://wellcome.ac.uk/funding). Our collaborations with the [Developing Human Connectome Project](http://www.developingconnectome.org/) are funded by the ERC.
+We are grateful for funding from [UKRI](), [EPSRC](), [Newton Fund](), [dstl]().
 <br>
 <br>
 <br>
