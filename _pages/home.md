@@ -53,8 +53,8 @@ Please check out our [GitHub page](https://github.com/metrics-lab) and [Resource
 <figure class="fourth">
   <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/ukri_epsrc_standard_logo.png" style="height: 45px; ; padding-right:10px">
   <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/ukri-innovate-uk-standard-logo.png" style="height: 45px; padding-right:10px">
-  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/newton_fund.jpeg" style="height: 45px; padding-right:10px">
-  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/dstl.png" style="height: 45px; padding-right:10px">
+  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/newton_fund_logo.jpeg" style="height: 45px; padding-right:10px">
+  <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/dstl_logo.png" style="height: 45px; padding-right:10px">
 </figure>
 
 We are grateful for funding from [UKRI](), [EPSRC](), [Newton Fund](), [dstl]().
