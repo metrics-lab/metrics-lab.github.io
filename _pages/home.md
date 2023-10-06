@@ -1,20 +1,19 @@
 ---
-title: "METRICS Lab - Home"
+title: "LUCAS - Home"
 layout: homelay
-excerpt: "METRICS Lab"
+excerpt: "LUCAS"
 sitemap: false
 permalink: /
 ---
 <div markdown style="text-align: justify">
-Welcome to the website for MeTrICS Lab (Machine Learning for Translational Imaging and Cortical Surfaces), based at [King's College London](https://www.kcl.ac.uk/). Working alongside the [Centre for the Developing Brain](https://www.developingbrain.co.uk/) at King's College London, we seek to develop tools that support perinatal (fetal and neonatal) health and improve understanding of the mechanisms behind neurodevelopmental impairment.
+Welcome to the website for Loughborough University Centre for Autonomous System (LUCAS), based at [Loughborough University](https://www.lboro.ac.uk/). LUCAS is a specialised research group, focusing on research in aerospace control. Comprised of both students and research professionals, LUCAS has strong links to many industrial partners and primarily works on research for unmanned applications. In addition to industry-backed research, a large part of LUCAS is post-graduate study, allowing for an investigation into areas not currently commercially explored.
 
 Our specific areas of interest include:
-- Cortical surface processing
-- Functional and microstructural imaging
-- Geometric Deep Learning
-- Image reconstruction, segmentation and registration
-- Interpretable AI
-- Spatio-temporal ML
+- Advanced Automation and Control
+- Estimation, Tracking and Decision Making
+- Robotic Information Gathering 
+- Machine Learning and AI
+- Computer Vision
 
  See [Research](research) for more details
 
@@ -31,10 +30,10 @@ We are **always** looking for passionate new students (PhD and MSc/MEng) and pos
     <!-- Items -->
     <div class="carousel-inner" markdown="0">
         <div class="item active">
-            <img src="{{ site.url }}{{ site.baseurl }}/images/slider7001400/METRICS_group_pic.jpg" alt="Slide 1" />
+            <img src="{{ site.url }}{{ site.baseurl }}/images/slider7001400/lucasgroup.png" alt="Slide 1" />
         </div>
         <div class="item">
-            <img src="{{ site.url }}{{ site.baseurl }}/images/slider7001400/20211010_181517.jpg" alt="Slide 2" />
+            <img src="{{ site.url }}{{ site.baseurl }}/images/slider7001400/sadmu_cunjia.jpg" alt="Slide 2" />
         </div>
     </div>
   <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
