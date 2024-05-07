@@ -10,6 +10,10 @@ Access to the 2020-2021 (pandemic recordings) of our machine learning and advanc
 
 I'm slowly uploading recordings or lectures and group tutorials to [Youtube](https://www.youtube.com/channel/UCG29i_rckT-JWNo6JHIyknA) 
 
+## Soft Skills
+[Writing workshop for students](https://emckclac-my.sharepoint.com/:b:/g/personal/k1644933_kcl_ac_uk/EZ3dSDcYRsdMonZa-wAhhlsBMhKXFGG8P-BRTt_3lpKcXA?e=zgAkvt)
+[KCL probation/promotion training](https://emckclac-my.sharepoint.com/:b:/g/personal/k1644933_kcl_ac_uk/EaXB7YzaDBJCsl4vIeZwf78B9lQvTYC6kqFk0o3A24_cJQ?e=qs06Ym)
+
 ## Group Tutorials
 We run tutorials on a variety of topics including machine learning, medical image processing and foundation neuroscience.
 
