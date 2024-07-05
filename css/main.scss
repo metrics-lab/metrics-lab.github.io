@@ -98,8 +98,18 @@ button {
 	padding: 5px 10px;
   }
 
-  table :is(td, th) {
-	border: 1px solid black;
-	padding: 0.5em;
-	background-color:antiquewhite;
-  }
+table :is(td,th) {
+padding:0.5em;
+}
+
+table thead {
+background-color: #e9e8ff;
+}
+
+tr:nth-child(even) {
+background-color: #fff0e8;
+}
+
+table tr  {
+border: 1px solid white;
+}
