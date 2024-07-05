@@ -5,7 +5,27 @@ excerpt: "METRICS Lab -- Resources"
 permalink: /talks/
 ---
 
-## Selection of Emma's Talks 
+# Upcoming METRICS Lab Seminars
+
+
+| Date 	| Presents 	| Title 	|
+| ------ | ---------- | ------- |
+| 05-07-2024    | George Obada  | Treatment of Cardiac Arrhythmias  |
+|      	|          	|       	|
+|      	|          	|       	|
+
+
+# Past METRICS Lab Seminars
+
+
+| Date 	| Presents 	| Title 	| Link 	|
+|------	|----------	|-------	|------	|
+|      	|          	|       	|      	|
+|      	|          	|       	|      	|
+|      	|          	|       	|      	|
+
+
+# Selection of Emma's Talks
 
 <b>July 2023</b>  Keynote OHBM2023 [slides](https://emckclac-my.sharepoint.com/:b:/g/personal/k1644933_kcl_ac_uk/EawCu44tfhhBpk5Qzl9sFSMBtRXvcFC1090ltjn51VnY4w?e=9BlqSc) [talk](https://www.youtube.com/watch?v=z8MkmBz85wI)
 
