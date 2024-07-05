@@ -25,8 +25,3 @@ permalink: /seminars/
 |      	|          	|       	|      	|
 |      	|          	|       	|      	|
 
-
-<br>
-<br>
-<br>
-<br>
