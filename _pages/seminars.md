@@ -8,15 +8,20 @@ permalink: /seminars/
 
 # Upcoming METRICS Lab Seminars
 
-| Date | Presenter | Title |
-| ---------------- | ---------------- | -------------------------------- |
-| 05-07-2024 | George Obada | Treatment of Cardiac Arrhythmias |
+| Date 	| Presents 	| Title 	|
+|------	|----------	|-------	|
+| 05-07-2024    | George Obada  | Treatment of Cardiac Arrhythmias  |
+|      	|          	|       	|
+|      	|          	|       	|
 
 # Past METRICS Lab Seminars
 
-| Date | Presenter | Title | Link |
-| ---------------- | ---------------- | -------------------------------- | ---------------- |
-| | | |
+| Date 	| Presents 	| Title 	| Link 	|
+|------	|----------	|-------	|------	|
+|      	|          	|       	|      	|
+|      	|          	|       	|      	|
+|      	|          	|       	|      	|
+
 <br>
 <br>
 <br>
