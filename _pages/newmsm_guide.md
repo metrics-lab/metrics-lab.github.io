@@ -11,10 +11,6 @@ newMSM (Multimodal Surface Matching) is a tool for registering cortical surfaces
 
 The main MSM tool is currently run from the command line using the program `newmsm`. This enables fast alignment of spherical cortical surfaces by utilising a fast discrete optimisation framework (FastPD: Komodakis 2007), which significantly reduces the search space of possible deformations for each vertex, and allows flexibility with regards to the choice of similarity metric used to match the images.
 
-This page is organised into the following sections:
-
-<div id="pagetoc" start="1" end="2" offset="1"></div>
-
 ## Referencing
 
 If you wish to use this tool, please reference our paper in any resulting publication.
@@ -36,7 +32,7 @@ For those using the HCP pipelines and/or newMSM with Higher Order Smoothness Con
 
 As mentioned above MSM matches two spherical surfaces known as the input and reference. Registration is performed by warping a low resolution regular Control Point (CP) Grid. At each iteration of the registration, every control point is deformed independently according to one of a small set of local rotations. The endpoints of these rotations are defined by a set of evenly spaced points (labels) that surround the control point, which are determined by placing a higher resolution Sampling Grid over each CP. This warp is then propagated to the (higher resolution) input mesh using mesh interpolation.
 
-<img src="registration/msm_sphericalframework.jpg"></img>
+<img src="../images/newmsm/msm_sphericalframework.jpg"></img>
 
 Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input_mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular [template surfaces](#regular-mesh-surfaces) known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
 
@@ -46,7 +42,7 @@ The number of faces in an icosahedron is 20 and subsampling this gives rise to h
 
 ## Regularisation
 
-<img src="registration/msm_grids.jpg"></img>
+<img src="../images/newmsm/msm_grids.jpg"></img>
 
 ## The Human Connectome Project - visualisation software and file formats
 
