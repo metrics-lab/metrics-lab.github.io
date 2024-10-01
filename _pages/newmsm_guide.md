@@ -32,7 +32,7 @@ For those using the HCP pipelines and/or newMSM with Higher Order Smoothness Con
 
 As mentioned above MSM matches two spherical surfaces known as the input and reference. Registration is performed by warping a low resolution regular Control Point (CP) Grid. At each iteration of the registration, every control point is deformed independently according to one of a small set of local rotations. The endpoints of these rotations are defined by a set of evenly spaced points (labels) that surround the control point, which are determined by placing a higher resolution Sampling Grid over each CP. This warp is then propagated to the (higher resolution) input mesh using mesh interpolation.
 
-<img src="../images/newmsm/msm_sphericalframework.jpg"></img>
+<img src="../images/newmsm/msm_sphericalframework.jpg"/>
 
 Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input_mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular [template surfaces](#regular-mesh-surfaces) known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
 
@@ -40,9 +40,9 @@ An important characteristic of the MSM framework is that the registration is per
 
 The number of faces in an icosahedron is 20 and subsampling this gives rise to high resolution representations of a sphere that are used for controlling the grid spacing. Serial subsampling leads to polyhedra with the following number of faces: 42, 162, 642, 2562, 10242, 40962. These correspond to the codes: 1, 2, 3, 4, 5, 6. Below are examples of codes 0 (icosahedron), 1 and 2 in the first row and 4 and 5 in the second row.
 
-## Regularisation
+<img src="../images/newmsm/msm_grids.jpg"/>
 
-<img src="../images/newmsm/msm_grids.jpg"></img>
+## Regularisation
 
 ## The Human Connectome Project - visualisation software and file formats
 
@@ -180,7 +180,7 @@ newmsm \
     --inweight=in_weight_RSN.func.gii             \
     --refweight=ref_weight_RSN.gii                \
     --conf=myconfRSN                              \
-    --out=~/myRSNdirname/L.                          \
+    --out=~/myRSNdirname/L.                       \
     --verbose
 ```
 
@@ -262,3 +262,5 @@ MeshREG ERROR:: config file parameter list lengths are inconsistent
 ```
 
 In addition, as affine registration only implements the following parameters: `--opt`, `--simval`, `--it`, `--sigma_in`, `--sigma_ref`, `--IN`, `--VN`, `--scale`, `--excl`, for all other multi level parameters, it is necessary to supply a zero value for the AFFINE stage (see example line `--lambda` first parameter).
+
+# Use cases
