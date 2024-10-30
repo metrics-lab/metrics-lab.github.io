@@ -11,6 +11,8 @@ newMSM (Multimodal Surface Matching) is a tool for registering cortical surfaces
 
 The main MSM tool is currently run from the command line using the program `newmsm`. This enables fast alignment of spherical cortical surfaces by utilising a fast discrete optimisation framework (FastPD: Komodakis 2007), which significantly reduces the search space of possible deformations for each vertex, and allows flexibility with regards to the choice of similarity metric used to match the images.
 
+NewMSM is a new implementation with several improvements that made the MSM method computationally more efficient. Improvements include a completely re-implemented mesh resampling library with a new nearest neighbour search algorithm (octree search), an option for multicore CPU utilisation and several other improvements. In general, the average runtime of a registration process is now 25% of that of the original MSM implementation (and 5% using multicore CPU utilisation). The operation of newMSM is supposed to be the same as the previous MSM implementation. We notify the user about any changes that have been made in adequate command line messages. NewMSM now contains an implementation of a groupwise surface registration method that is described later in this guide. The original implementation can be found at https://github.com/ecr05/MSM_HOCR/
+
 ## Referencing
 
 If you wish to use this tool, please reference our paper in any resulting publication.
@@ -28,21 +30,23 @@ For those using the HCP pipelines and/or newMSM with Higher Order Smoothness Con
 
 > Matthew F. Glasser, Stamatios N. Sotiropoulos, J. Anthony Wilson, Timothy S. Coalson, Bruce Fischl, Jesper L. Andersson, Junqian Xu, Saad Jbabdi, Matthew Webster, Jonathan R. Polimeni, David C. Van Essen, Mark Jenkinson, The minimal preprocessing pipelines for the Human Connectome Project, NeuroImage, Volume 80, 2013, Pages 105-124, ISSN 1053-8119, https://doi.org/10.1016/j.neuroimage.2013.04.127.
 
+If you use the groupwise method, please also reference:
+
+> Besenczi, R., Guo, Y., Robinson, E.C. (2024). High Performance Groupwise Cortical Surface Registration with Multimodal Surface Matching. In: Modat, M., Simpson, I., Špiclin, Ž., Bastiaansen, W., Hering, A., Mok, T.C.W. (eds) Biomedical Image Registration. WBIR 2024. Lecture Notes in Computer Science, vol 15249. Springer, Cham. https://doi.org/10.1007/978-3-031-73480-9_25
+
 ## Method fundamentals
 
 As mentioned above MSM matches two spherical surfaces known as the input and reference. Registration is performed by warping a low resolution regular Control Point (CP) Grid. At each iteration of the registration, every control point is deformed independently according to one of a small set of local rotations. The endpoints of these rotations are defined by a set of evenly spaced points (labels) that surround the control point, which are determined by placing a higher resolution Sampling Grid over each CP. This warp is then propagated to the (higher resolution) input mesh using mesh interpolation.
 
 <img src="../images/newmsm/msm_sphericalframework.jpg"/>
 
-Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input_mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular [template surfaces](#regular-mesh-surfaces) known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
+Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular [template surfaces](#regular-mesh-surfaces) known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
 
 An important characteristic of the MSM framework is that the registration is performed over a series of stages. The registration can be initialised using an affine alignment step that should be able to correct global transformation differences between images. It then proceeds over a series of discrete registration steps where the resolution of the control point grid (that warps the input surface) is increased at each stage. At each stage of the discrete registration the registration performs a series of iterations, where control points are deformed as described above. Thus the registration proceeds in a coarse to fine fashion, where if large deformations are required to align the two surfaces these will be corrected for in the early stages of the registration and the final steps are for alignment of fine detail. For more details please see our NeuroImage paper.
 
 The number of faces in an icosahedron is 20 and subsampling this gives rise to high resolution representations of a sphere that are used for controlling the grid spacing. Serial subsampling leads to polyhedra with the following number of faces: 42, 162, 642, 2562, 10242, 40962. These correspond to the codes: 1, 2, 3, 4, 5, 6. Below are examples of codes 0 (icosahedron), 1 and 2 in the first row and 4 and 5 in the second row.
 
 <img src="../images/newmsm/msm_grids.jpg"/>
-
-## Regularisation
 
 ## The Human Connectome Project - visualisation software and file formats
 
@@ -202,7 +206,7 @@ Some parameters require inputs for every stage of the registration, and are inpu
 
  - `--lambda` weights the contribution of the regulariser relative to the similarity force.
  - `--opt` selects the optimisation approach. Choice of: `AFFINE` or `DISCRETE` (default)
- - `--simval` selects the similarity measure for each stage of the registration. There is a choice of 1) SSD or 2) correlation (default). SSD is enforced for affine alignment. For discrete optimisation we strongly recommend correlation for all datasets. The current implementations of SSD does not in general work well in the discrete case, and we do not advise using it.
+ - `--simval` selects the similarity measure for each stage of the registration. There is a choice of 1) SSD; 2) correlation (default) or 4) DICE overlap. For discrete optimisation we strongly recommend correlation for all datasets. The current implementations of SSD does not in general work well in the discrete case, and we do not advise using it.
  - `--it` controls the number of iterations at each resolution. In general affine registration will require in excess of 30 iterations. Discrete optimisation will converge after 5-10 iterations.
  - `--sigma_in` sets the input smoothing: this changes the smoothing kernel's standard deviation (default `--sigma_in=2,2,2`, but for very noisy data we suggest you smooth more)
  - `--sigma_ref` sets the reference smoothing: the values are equal to `sigma_in` by default, but you could smooth the reference less than the input if you are using an average template.
@@ -215,21 +219,23 @@ Other parameters need only be specified once:
  - `--excl` tells MSM to ignore an 'exclusion' region; defined by thresholding (the intensity range provided by the cut threshold below)
  - `--cutthr` controls the exclusion region, which is defined for all intensities between a certain intensity range. It needs two values as upper and lower thresholds for defining cut vertices. As it is usually used to mask the cut on the medial wall (which is zero valued) these values are typically `--cutthr=0,0.0001`
  - `--IN` used to normalize the intensity range of the target to that of the input data using histogram matching
- - `--VN` used to variance normalize data the input and target featuresets
- - `--regoption` used to set the regulariser. Default is strain based regularisation. Set this value to 3 for typical MSM and 5 for anatomical MSM.
- - `--dopt` used to select optimiser. Possible values are `FastPD`, `HOCR`. As an experimental feature, `MCMC` can be selected.
+ - `--VN` used to variance normalize input data across all channels
+ - `--regoption` used to set the regulariser. Only strain based regularisation is available. Set this value to 3 for typical and groupwise MSM and 5 for anatomical MSM.
+ - `--dopt` used to select optimiser. Possible values are `FastPD` or `HOCR`. As an experimental feature, `MCMC` can be selected.
  - `--triclique` option to calculate correlation on mesh face triangle patches instead of circular patches around a CP grid vertex.
- - `--shearmod` shear modulus. See regularisation section.
- - `--bulkmod` bulk modulus. See regularisation section.
- - `--k_exponent` k exponent. See regularisation section.
- - `--regexp` regularisation exponent. See regularisation section.
+ - `--shearmod` shear modulus. See regularisation section in 2018 NeurImage paper.
+ - `--bulkmod` bulk modulus. See regularisation section in 2018 NeurImage paper.
+ - `--k_exponent` k exponent. See regularisation section in 2018 NeurImage paper.
+ - `--regexp` regularisation exponent. See regularisation section in 2018 NeurImage paper.
  - `--rescaleL` you can set this option the rescale labels between iterations.
  - `--cprange` increase or decrease the range of sampling from the control point.
  - `--stepsize` affine registration parameter.
  - `--gradsampling` affine registration parameter.
  - `--numthreads` number of execution threads. newMSM can run on multiple CPU threads. (Default is 1)
- - `--mciters` number of Monte Carlo iterations. See markov Chain Monte Carlo optimiser section.
- - `--mcparam` parameter for the random number generator. See markov Chain Monte Carlo optimiser section.
+ - `--mciters` number of Monte Carlo iterations. See Markov Chain Monte Carlo optimiser section.
+ - `--mcparam` parameter for the random number generator. See Markov Chain Monte Carlo optimiser section.
+ - `--patchwise` calculating similarity patchwise instead of featurewise in multimodal mode.
+ - `--percentile` thresholding percentile for DICE overlap similarity metric. (Default is 0.75)
 
 An example configuration file is (see more at use cases section):
 
@@ -253,7 +259,7 @@ An example configuration file is (see more at use cases section):
 --rescaleL
 ```
 
-The comma separated lists above represent parameters per level, and the number of resolution levels run by msm can be controlled by the length of the lists specified here. Registration may also be initialised using an affine alignment step, run as an additional level at the beginning. Therefore, the above case is stating that the registration should run one affine step using: SSD as a similarity measure, 50 iterations, input mesh smoothing 2mm, reference mesh smoothing 2mm, on a data grid of resolution 2562 vertices; Following this discrete optimisation is run over 3 levels with 3 iterations at each level, using control point grid resolutions 162, 642, and 2562, where the sampling grid resolution is 2 subdivisions above this, and the data grids have resolution: 2562, 10242 and 40962 vertices. Smoothing is applied to the source image as 4, 2, then 1mm sigma smoothing kernels, and to the reference image as 2, 1 and 1mmm smoothing. `--IN` indicates that the source intensity distribution is matched to the target intensity distribution, once at the beginning of the registration.
+The comma separated lists above represent parameters per level, and the number of resolution levels run by MSM can be controlled by the length of the lists specified here. Registration may also be initialised using an affine alignment step, run as an additional level at the beginning. Therefore, the above case is stating that the registration should run one affine step using: SSD as a similarity measure, 50 iterations, input mesh smoothing 2mm, reference mesh smoothing 2mm, on a data grid of resolution 2562 vertices; Following this discrete optimisation is run over 3 levels with 3 iterations at each level, using control point grid resolutions 162, 642, and 2562, where the sampling grid resolution is 2 subdivisions above this, and the data grids have resolution: 2562, 10242 and 40962 vertices. Smoothing is applied to the source image as 4, 2, then 1mm sigma smoothing kernels, and to the reference image as 2, 1 and 1mmm smoothing. `--IN` indicates that the source intensity distribution is matched to the target intensity distribution, once at the beginning of the registration.
 
 If you choose to edit or optimise the config files then it is important to remember that all multiresolution level parameter lists must have the same length, else the program will throw the following error:
 
