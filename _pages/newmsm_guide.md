@@ -38,7 +38,7 @@ If you use the groupwise method, please also reference:
 
 As mentioned above MSM matches two spherical surfaces known as the input and reference. Registration is performed by warping a low resolution regular Control Point (CP) Grid. At each iteration of the registration, every control point is deformed independently according to one of a small set of local rotations. The endpoints of these rotations are defined by a set of evenly spaced points (labels) that surround the control point, which are determined by placing a higher resolution Sampling Grid over each CP. This warp is then propagated to the (higher resolution) input mesh using mesh interpolation.
 
-<img src="../images/newmsm/msm_sphericalframework.jpg" max-width=100% height=auto/>
+![image](/images/newmsm/msm_sphericalframework.jpg){:class="img-responsive" width="100%"}
 
 Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular [template surfaces](#regular-mesh-surfaces) known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
 
@@ -46,7 +46,7 @@ An important characteristic of the MSM framework is that the registration is per
 
 The number of faces in an icosahedron is 20 and subsampling this gives rise to high resolution representations of a sphere that are used for controlling the grid spacing. Serial subsampling leads to polyhedra with the following number of faces: 42, 162, 642, 2562, 10242, 40962. These correspond to the codes: 1, 2, 3, 4, 5, 6. Below are examples of codes 0 (icosahedron), 1 and 2 in the first row and 4 and 5 in the second row.
 
-<img src="../images/newmsm/msm_grids.jpg" max-width=100% height=auto/>
+<img src="../images/newmsm/msm_grids.jpg" width=100% height=auto/>
 
 ## The Human Connectome Project - visualisation software and file formats
 
@@ -196,7 +196,7 @@ This will repeat Step 2 above, but this time each of the meshes will have a corr
 
 We extended the existing MSM framework to perform groupwise registration by simultaneously co-registering clusters of surfaces, which share common modes of cortical variation. Let's say, there exist n moving meshes for any given cluster; each input surface is therefore associated with its own low-resolution CP grid. For each iteration, the groupwise registration must choose the optimal discrete displacement for all CP grid by comparing the overlap of features, across all inputs, for the set of proposed moves. For each CP grid, this involves calculating the similarity between overlapping patches of features, defined around each of its CP vertices, and all overlapping patches defined for neighbouring vertices in all other CP grids. These are defined by propagating the proposed mapping to the resolution of the input feature maps, and resampling all data to a common reference frame (F) to calculate patch overlap. Here F is defined from a high resolution icospheric tessellation (ico6 - 40,962 vertices), and features are resampled using adaptive barycentric interpolation. Regularisation is then implemented by calculating the hyper-elastic strain of every proposed move on all subjects' CP grid.
 
-<img src="../images/newmsm/gw_method_flow.png" max-width=100% height=auto/>
+<img src="../images/newmsm/gw_method_flow.png" width=100% height=auto/>
 
 # Configuration Files
 
