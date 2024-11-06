@@ -38,7 +38,7 @@ If you use the groupwise method, please also reference:
 
 As mentioned above MSM matches two spherical surfaces known as the input and reference. Registration is performed by warping a low resolution regular Control Point (CP) Grid. At each iteration of the registration, every control point is deformed independently according to one of a small set of local rotations. The endpoints of these rotations are defined by a set of evenly spaced points (labels) that surround the control point, which are determined by placing a higher resolution Sampling Grid over each CP. This warp is then propagated to the (higher resolution) input mesh using mesh interpolation.
 
-<img src="../images/newmsm/msm_sphericalframework.jpg"/>
+<img src="../images/newmsm/msm_sphericalframework.jpg" max-width=100% height=auto/>
 
 Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular [template surfaces](#regular-mesh-surfaces) known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
 
@@ -46,7 +46,7 @@ An important characteristic of the MSM framework is that the registration is per
 
 The number of faces in an icosahedron is 20 and subsampling this gives rise to high resolution representations of a sphere that are used for controlling the grid spacing. Serial subsampling leads to polyhedra with the following number of faces: 42, 162, 642, 2562, 10242, 40962. These correspond to the codes: 1, 2, 3, 4, 5, 6. Below are examples of codes 0 (icosahedron), 1 and 2 in the first row and 4 and 5 in the second row.
 
-<img src="../images/newmsm/msm_grids.jpg"/>
+<img src="../images/newmsm/msm_grids.jpg" max-width=100% height=auto/>
 
 ## The Human Connectome Project - visualisation software and file formats
 
@@ -196,7 +196,7 @@ This will repeat Step 2 above, but this time each of the meshes will have a corr
 
 We extended the existing MSM framework to perform groupwise registration by simultaneously co-registering clusters of surfaces, which share common modes of cortical variation. Let's say, there exist n moving meshes for any given cluster; each input surface is therefore associated with its own low-resolution CP grid. For each iteration, the groupwise registration must choose the optimal discrete displacement for all CP grid by comparing the overlap of features, across all inputs, for the set of proposed moves. For each CP grid, this involves calculating the similarity between overlapping patches of features, defined around each of its CP vertices, and all overlapping patches defined for neighbouring vertices in all other CP grids. These are defined by propagating the proposed mapping to the resolution of the input feature maps, and resampling all data to a common reference frame (F) to calculate patch overlap. Here F is defined from a high resolution icospheric tessellation (ico6 - 40,962 vertices), and features are resampled using adaptive barycentric interpolation. Regularisation is then implemented by calculating the hyper-elastic strain of every proposed move on all subjects' CP grid.
 
-<img src="../images/newmsm/gw_method_flow.png" width="500"/>
+<img src="../images/newmsm/gw_method_flow.png" max-width=100% height=auto/>
 
 # Configuration Files
 
@@ -240,6 +240,7 @@ Other parameters need only be specified once:
  - `--mcparam` parameter for the random number generator. See Markov Chain Monte Carlo optimiser section.
  - `--patchwise` calculating similarity patchwise instead of featurewise in multimodal mode.
  - `--percentile` thresholding percentile for DICE overlap similarity metric. (Default is 0.75)
+ - `--fixnan` Fixing NaN cost function results with the value 1e7.
 
 An example configuration file is (see more at use cases section):
 
@@ -274,3 +275,99 @@ MeshREG ERROR:: config file parameter list lengths are inconsistent
 In addition, as affine registration only implements the following parameters: `--opt`, `--simval`, `--it`, `--sigma_in`, `--sigma_ref`, `--IN`, `--VN`, `--scale`, `--excl`, for all other multi level parameters, it is necessary to supply a zero value for the AFFINE stage (see example line `--lambda` first parameter).
 
 # Use cases
+
+## Groupwise registration
+
+In this tutorial, we will guide you through a series of steps to show you how the groupwise mode of MSM works. We will use examples from the HCP dataset, so you should have a few subjects' data downloaded and surfaces reconstructed (with e.g., HCP minimal processing pipeline or Freesurfer).
+
+As a demonstration, to assist the process, we provide pipeline scripts that can be found at https://github.com/rbesenczi/newMSM/tree/main/gMSM_scripts/gMSM_tutorial. In this, the gw_MSM.sh script prepares the data, performs registration and post-processes the results. The input of the script is a clustering CSV file that contains a list of subject IDs and corresponding group IDs as demonstrated in the following example (in the CSV \<line_number, subject ID, group ID\>):
+
+```bash
+1,212419.R,NODE1910
+2,127933.R,NODE1910
+3,135629.R,NODE1910
+4,130720.L,NODE1951
+5,176239.R,NODE1951
+6,221319.R,NODE1951
+7,139637.R,NODE1951
+8,130114.L,NODE1951
+9,130114.R,NODE1951
+...
+```
+
+NODE1910 and NODE1951 are in_SULC_data of groups that contain subjects 212419.R, 127933.R, etc.
+
+In the bash script file you can set:
+- the input folder where your data resides,
+- a work directory where the outputs and results will be saved,
+- the clustering CSV file path,
+- the template (i.e. registration output space) file path,
+- the configuration file path,
+- and the group ID you want to register.
+
+The required arguments of newmsm are:
+- data: the list of data files (created by the script),
+- meshes: the spherical meshes that the data is on (created by the script),
+- template: the output space of the registration,
+- conf: config file (will be detailed later),
+- out: output path and file name prefix,
+- groupwise: required to start MSM in groupwise mode.
+
+Optional arguments are:
+- verbose: more state messages printed to the console output,
+- mask: this will set a weight mask to all meshes.
+
+Example:
+```bash
+time $HOME/fsldev/bin/newmsm \
+  --data=$workdir/file_lists/input_data_$group_id.txt \
+  --meshes=$workdir/file_lists/input_meshes_$group_id.txt \
+  --mask=$workdir/configs/maskfile.func.gii \
+  --template=$template \
+  --conf=$config_file \
+  --out=$outdir/$group_id/groupwise.$group_id. \
+  --verbose --groupwise
+```
+
+There are a few differences that you should consider when you set your config files. In general, you might need to set the regularisation (lambda) somewhat higher than in typical MSM. In the case of sulcal depth or curvature, this means somewhere between 0.2-0.5. All similarity metrics are available, but we recommend using the Pearson's correlation coefficient (simval=2). For the optimiser, only HOCR is available (MCMC is being developed) and triclique likelihood, the rescaleL option and anatomical mesh regularisation are not available (so use regoption=3). Also note that AFFINE registration is not available at the moment, so it is advised to perform affine alignment separately to a template before groupwise registration (usually this step is done before clustering). Parallelisation is available. As a new option, `--fixnan` can change NaN values to 1e7, providing more stability to the FastPD optimiser.
+
+An example config file:
+
+```
+--simval=2,2,2
+--sigma_in=0,0,0
+--sigma_ref=0,0,0
+--lambda=0.2,0.2,0.2
+--it=9,9,9
+--opt=DISCRETE,DISCRETE,DISCRETE
+--CPgrid=2,3,4
+--SGgrid=4,5,6
+--datagrid=4,5,6
+--regoption=3
+--regexp=2
+--dopt=HOCR
+--k_exponent=2
+--bulkmod=1.6
+--shearmod=0.4
+--numthreads=4
+```
+
+After registration, we apply dedrifting for the outputs of the registration for the entire group. We calculate the surface average of the inverse registration and correct all outputs. Finally we generate mean and standard deviation maps and areal and shape distortion maps.
+
+As an optional step, we show how we compared gMSM results with typical registration. For this we provide the typical_MSM.sh and compare_stats.py scripts. The typical_MSM script performs "typical" registration (i.e. individual subject to template), so you will need to choose a template. In the script provided, this template is `MSMStrain.L.sulc.curv.ico6.shape.gii`. After registering all the subjects in the specified group to the same template, we generate the mean, standard deviation and areal and shape distortion maps, just as we did with the groupwise results.
+
+After this, the compare_stats.py script calculates cross-correlation similarity (pairwise average), DICE overlap ratio (percentile can be changed, .75 is the default) and different areal and shape distortion statistics, as shown below for NODE2018:
+
+```
+    Stats for group NODE2078
+    Sulc
+        CC similarity: 0.8011; Dice overlap: 0.67
+        CC similarity: 0.722; Dice overlap: 0.6028
+    Curv
+        CC similarity: 0.5337; Dice overlap: 0.5684
+        CC similarity: 0.2469; Dice overlap: 0.4056
+    Distortion
+        Areal mean: 0.2604; Areal Max: 1.209; Areal 95%: 0.587; Areal 98%: 0.6701; Shape mean: 0.544; Shape Max: 1.801
+        Areal mean: 0.1707; Areal Max: 0.6959; Areal 95%: 0.3755; Areal 98%: 0.4272; Shape mean: 0.4109; Shape Max: 1.69
+
+```
