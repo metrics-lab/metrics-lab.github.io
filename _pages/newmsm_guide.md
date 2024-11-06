@@ -295,7 +295,7 @@ As a demonstration, to assist the process, we provide pipeline scripts that can 
 ...
 ```
 
-NODE1910 and NODE1951 are in_SULC_data of groups that contain subjects 212419.R, 127933.R, etc.
+NODE1910 and NODE1951 are groups that contain subjects 212419.R, 127933.R, etc.
 
 In the bash script file you can set:
 - the input folder where your data resides,
@@ -354,9 +354,7 @@ An example config file:
 
 After registration, we apply dedrifting for the outputs of the registration for the entire group. We calculate the surface average of the inverse registration and correct all outputs. Finally we generate mean and standard deviation maps and areal and shape distortion maps.
 
-As an optional step, we show how we compared gMSM results with typical registration. For this we provide the typical_MSM.sh and compare_stats.py scripts. The typical_MSM script performs "typical" registration (i.e. individual subject to template), so you will need to choose a template. In the script provided, this template is `MSMStrain.L.sulc.curv.ico6.shape.gii`. After registering all the subjects in the specified group to the same template, we generate the mean, standard deviation and areal and shape distortion maps, just as we did with the groupwise results.
-
-After this, the compare_stats.py script calculates cross-correlation similarity (pairwise average), DICE overlap ratio (percentile can be changed, .75 is the default) and different areal and shape distortion statistics, as shown below for NODE2018:
+As an optional step, we show how we compared gMSM results with typical registration. For this we provide the typical_MSM.sh and compare_stats.py scripts. The typical_MSM script performs "typical" registration (i.e. individual subject to template), so you will need to choose a template. In the script provided, this template is `MSMStrain.L.sulc.curv.ico6.shape.gii`. After registering all the subjects in the specified group to the same template, we generate the mean, standard deviation and areal and shape distortion maps, just as we did with the groupwise results. After this, the compare_stats.py script calculates cross-correlation similarity (pairwise average), DICE overlap ratio (percentile can be changed, .75 is the default) and different areal and shape distortion statistics, as shown below for NODE2078:
 
 ```
     Stats for group NODE2078
