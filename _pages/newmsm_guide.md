@@ -354,6 +354,22 @@ An example config file:
 
 After registration, we apply dedrifting for the outputs of the registration for the entire group. We calculate the surface average of the inverse registration and correct all outputs. Finally we generate mean and standard deviation maps and areal and shape distortion maps.
 
+The most important outputs of the pipeline consists of the following files:
+- `groupwise.$group_id.sphere-$subject_id.reg.corrected.surf.gii`: the dedrifted mesh
+- `groupwise.$group_id.sphere-$subject_id.distortion.func.gii`: distortion map of subject
+- `groupwise.$group_id.transformed_and_reprojected.dedrift-$subject_id.func.gii`: aligned data
+- `groupwise.$group_id.areal.distortion.merge.sulc.affine.dedrifted.ico6.shape.gii`: areal distortion of all subjects
+- `groupwise.$group_id.shape.distortion.merge.sulc.affine.dedrifted.ico6.shape.gii`: shape distortion of all subjects
+- `groupwise.$group_id.mean.sulc.curv.affine.dedrifted.ico6.shape.gii`: mean maps
+- `groupwise.$group_id.shape.distortion.merge.sulc.affine.dedrifted.ico6.shape.gii`
+- `groupwise.$group_id.stdev.curv.affine.dedrifted.ico6.shape.gii`: standard deviation map of all subjects
+
+The figures below illustrate the output of the pipeline. First figure (from top left to bottom right): sulcal depth mean, sulcal depth standard deviation, curvature mean and curvature standard deviation maps. Second figure (from left to right): areal distortion and shape distortion charts.
+
+![image](/images/newmsm/gw_example_maps.png){:class="img-responsive" width="100%"}
+
+![image](/images/newmsm/gw_example_charts.png){:class="img-responsive" width="100%"}
+
 As an optional step, we show how we compared gMSM results with typical registration. For this we provide the typical_MSM.sh and compare_stats.py scripts. The typical_MSM script performs "typical" registration (i.e. individual subject to template), so you will need to choose a template. In the script provided, this template is `MSMStrain.L.sulc.curv.ico6.shape.gii`. After registering all the subjects in the specified group to the same template, we generate the mean, standard deviation and areal and shape distortion maps, just as we did with the groupwise results. After this, the compare_stats.py script calculates cross-correlation similarity (pairwise average), DICE overlap ratio (percentile can be changed, .75 is the default) and different areal and shape distortion statistics, as shown below for NODE2078:
 
 ```
