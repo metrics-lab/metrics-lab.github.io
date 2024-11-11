@@ -11,7 +11,7 @@ newMSM (Multimodal Surface Matching) is a tool for registering cortical surfaces
 
 The main MSM tool is currently run from the command line using the program `newmsm`. This enables fast alignment of spherical cortical surfaces by utilising a fast discrete optimisation framework (FastPD: Komodakis 2007), which significantly reduces the search space of possible deformations for each vertex, and allows flexibility with regards to the choice of similarity metric used to match the images.
 
-NewMSM is a new implementation with several improvements that made the MSM method computationally more efficient. Improvements include a completely re-implemented mesh resampling library with a new nearest neighbour search algorithm (octree search), an option for multicore CPU utilisation and several other improvements. In general, the average runtime of a registration process is now 25% of that of the original MSM implementation (and 5% using multicore CPU utilisation). The operation of newMSM is supposed to be the same as the previous MSM implementation. We notify the user about any changes that have been made in adequate command line messages. NewMSM now contains an implementation of a groupwise surface registration method that is described later in this guide. The original implementation can be found at https://github.com/ecr05/MSM_HOCR/
+NewMSM is a new implementation with several improvements that made the MSM method computationally more efficient. Improvements include a completely re-implemented mesh resampling library with a new nearest neighbour search algorithm (octree search), an option for multicore CPU utilisation and several other improvements. In general, the average runtime of a registration process is now 25% of that of the original MSM implementation (and 5% using multicore CPU utilisation). The operation of newMSM is supposed to be the same as the previous MSM implementation. We notify the user about any changes that have been made in adequate command line messages. NewMSM now contains an implementation of a groupwise surface registration method that is described later in this guide. The original implementation can be found [here](https://github.com/ecr05/MSM_HOCR/).
 
 ## Referencing
 
@@ -40,7 +40,7 @@ As mentioned above MSM matches two spherical surfaces known as the input and ref
 
 ![image](/images/newmsm/msm_sphericalframework.jpg){:class="img-responsive" width="75%"}
 
-Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular [template surfaces](#regular-mesh-surfaces) known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
+Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular template surfaces known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
 
 An important characteristic of the MSM framework is that the registration is performed over a series of stages. The registration can be initialised using an affine alignment step that should be able to correct global transformation differences between images. It then proceeds over a series of discrete registration steps where the resolution of the control point grid (that warps the input surface) is increased at each stage. At each stage of the discrete registration the registration performs a series of iterations, where control points are deformed as described above. Thus the registration proceeds in a coarse to fine fashion, where if large deformations are required to align the two surfaces these will be corrected for in the early stages of the registration and the final steps are for alignment of fine detail. For more details please see our NeuroImage paper.
 
@@ -50,8 +50,7 @@ The number of faces in an icosahedron is 20 and subsampling this gives rise to h
 
 ## The Human Connectome Project - visualisation software and file formats
 
-The HCP consortium (http://www.humanconnectome.org/) provide a suite of surface processing and visualisation tools that can be used very effectively together with MSM. In particular these tools refine the FreeSurfer pipeline, and supply pipelines for directly mapping functional and diffusion data onto the surface. Surfaces are supplied in CIFTI and GIFTI formats and can be visualised using the very flexible HCP visualisation tool `wb_view`. Scripts for processing your data following the HCP pipeline can be found at http://www.humanconnectome.org/documentation/HCP-pipelines/. If your data does not conform to the HCP protocol, specifically you have no T2 or different task protocols, please contact the [FSL mailing list](support.md).
-
+The [HCP consortium](http://www.humanconnectome.org/) provide a suite of surface processing and visualisation tools that can be used very effectively together with MSM. In particular these tools refine the FreeSurfer pipeline, and supply pipelines for directly mapping functional and diffusion data onto the surface. Surfaces are supplied in CIFTI and GIFTI formats and can be visualised using the very flexible HCP visualisation tool `wb_view`. Scripts for processing your data following the HCP pipeline can be found at [here](http://www.humanconnectome.org/documentation/HCP-pipelines/). If your data does not conform to the HCP protocol, specifically you have no T2 or different task protocols, please contact the [FSL mailing list](https://fsl.fmrib.ox.ac.uk/fsl/docs/#/support).
 
 # Getting started
 
@@ -88,7 +87,7 @@ The most relevant outputs of MSM are:
 
  - `~/mydirname/L.sphere.reg.surf.gii` - the warped input mesh (i.e., new vertex locations - this capture the warp field, much like a `*_warp.nii.gz` file would for volumetric warps created by FNIRT.
 
- - `~/mydirname/L.sphere.LR.reg.surf.gii` - this is a downsampled version of the above warp where the resolution of this mesh will be equivalent to the resolution of the final datamesh (see [configuration files](#configuration-files)). This can be used for warping new meshes through the transformation (see the [section on transformation](#transforming-unseen-data)).
+ - `~/mydirname/L.sphere.LR.reg.surf.gii` - this is a downsampled version of the above warp where the resolution of this mesh will be equivalent to the resolution of the final datamesh (see configuration files). This can be used for warping new meshes through the transformation (see the section on transformation).
 
  - `~/mydirname/L.transformed_and_reprojected.func.gii` - the input data passed through the MSM warp and projected onto the target surface (useful for vertex-wise comparison with the target).
 
@@ -116,7 +115,7 @@ In each subject's Native space there will be several spherical mesh representati
 
  - `/path/to/mystudy/BOB/MNINonLinear/Native/BOB.L.sphere.MSMall.native.surf.gii` - this is the result of aligning the native surface to FS_LR using HCP protocol for serial alignment of folding, myelin and rfMRI to a group template
 
-The important thing to take away here is that the HCP provides spheres aligned using MSM, with cortical folding as the features that drive the alignment. But, as the goal of the HCP is fMRI alignment this is highly constrained. This means the regularisation is strong (see [configuration files](#configuration-files)). Therefore users may wish to define their own MSMSulc alignment. For this they must use the `L.sphere.rot.native.surf.gii` as the input mesh. There are also two more spheres that represent FreeSurfer alignment:
+The important thing to take away here is that the HCP provides spheres aligned using MSM, with cortical folding as the features that drive the alignment. But, as the goal of the HCP is fMRI alignment this is highly constrained. This means the regularisation is strong (see configuration files). Therefore users may wish to define their own MSMSulc alignment. For this they must use the `L.sphere.rot.native.surf.gii` as the input mesh. There are also two more spheres that represent FreeSurfer alignment:
 
  - `/path/to/mystudy/BOB/MNINonLinear/Native/BOB.L.sphere.reg.native.surf.gii` - This is the results of aligning the native sphere to fsaverage using FreeSurfer
 
@@ -126,7 +125,7 @@ These should not be required, other than for comparisons of results to FreeSurfe
 
 # Advanced Command Line Features
 
-In addition to the required inputs to newmsm, there are several useful options. The most important of these is the `--conf` call that allows users to supply a configuration file which modifies key parameters of the registration. For optimal running of the registration a configuration file should be supplied (parameters are described in more detail [below](#configuration-files)).
+In addition to the required inputs to newmsm, there are several useful options. The most important of these is the `--conf` call that allows users to supply a configuration file which modifies key parameters of the registration. For optimal running of the registration a configuration file should be supplied (parameters are described in more detail below).
 
 ## Combining Warps
 
@@ -157,7 +156,7 @@ Running registration in this way, rather than simply taking the output from the 
 
 ## File Formats
 
-The output file format is controlled by the `-f`/`--format` option and the options are: GIFTI (surfaces are saved as `.surf.gii` and data as `.func.gii`); ASCII (surfaces are saved as `.asc` and data is saved as `.dpv`); ASCII-MAT (surfaces are saved as `.asc` and data is saved as a simple matrix in a textfile `.txt`); VTK (surfaces as `.vtk` and data as `.txt`). For more details on the `.dpv` format (which is FreeSurfer compatible, but differentiates surface from data files) please see the following blog post: http://brainder.org/2011/09/25/braindering-with-ascii-files/
+The output file format is controlled by the `-f`/`--format` option and the options are: GIFTI (surfaces are saved as `.surf.gii` and data as `.func.gii`); ASCII (surfaces are saved as `.asc` and data is saved as `.dpv`); ASCII-MAT (surfaces are saved as `.asc` and data is saved as a simple matrix in a textfile `.txt`); VTK (surfaces as `.vtk` and data as `.txt`). For more details on the `.dpv` format (which is FreeSurfer compatible, but differentiates surface from data files) please see [this blog post](http://brainder.org/2011/09/25/braindering-with-ascii-files/).
 
 ## Costfunction Weighting
 
@@ -200,18 +199,14 @@ We extended the existing MSM framework to perform groupwise registration by simu
 
 # Configuration Files
 
-Configuration files modify all tunable parameters of the registration. For a full list of all registration parameters you can enter:
-
-```bash
-newmsm -p
-```
+Configuration files modify all tunable parameters of the registration. For a full list of all registration parameters you can enter: `newmsm -p`
 
 Some parameters require inputs for every stage of the registration, and are input as comma separated lists e.g. `--lambda=0,0.1,0.2,0.3` (for four levels). These are:
 
  - `--lambda` weights the contribution of the regulariser relative to the similarity force.
  - `--opt` selects the optimisation approach. Choice of: `AFFINE` or `DISCRETE` (default)
  - `--simval` selects the similarity measure for each stage of the registration. There is a choice of 1) SSD; 2) correlation (default) or 4) DICE overlap. For discrete optimisation we strongly recommend correlation for all datasets. The current implementations of SSD does not in general work well in the discrete case, and we do not advise using it.
- - `--it` controls the number of iterations at each resolution. In general affine registration will require in excess of 30 iterations. Discrete optimisation will converge after 5-10 iterations.
+ - `--it` controls the maximum number of iterations at each resolution. In general affine registration will require in excess of 30 iterations. Discrete optimisation usually converge after 5-10 iterations.
  - `--sigma_in` sets the input smoothing: this changes the smoothing kernel's standard deviation (default `--sigma_in=2,2,2`, but for very noisy data we suggest you smooth more)
  - `--sigma_ref` sets the reference smoothing: the values are equal to `sigma_in` by default, but you could smooth the reference less than the input if you are using an average template.
  - `--datagrid` in MSM data is typically downsampled from the high resolution surfaces input mesh and reference mesh onto a regular (equally spaced vertex) grid. This speeds up the running of MSM without appreciably downgrading the quality of the alignment. These grids are formed from subdivision of a icosahedron and are coded in terms of the number of resamplings performed. For datagrids we typically we use 10K grids, which have code 5.
@@ -264,13 +259,9 @@ An example configuration file is (see more at use cases section):
 --rescaleL
 ```
 
-The comma separated lists above represent parameters per level, and the number of resolution levels run by MSM can be controlled by the length of the lists specified here. Registration may also be initialised using an affine alignment step, run as an additional level at the beginning. Therefore, the above case is stating that the registration should run one affine step using: SSD as a similarity measure, 50 iterations, input mesh smoothing 2mm, reference mesh smoothing 2mm, on a data grid of resolution 2562 vertices; Following this discrete optimisation is run over 3 levels with 3 iterations at each level, using control point grid resolutions 162, 642, and 2562, where the sampling grid resolution is 2 subdivisions above this, and the data grids have resolution: 2562, 10242 and 40962 vertices. Smoothing is applied to the source image as 4, 2, then 1mm sigma smoothing kernels, and to the reference image as 2, 1 and 1mmm smoothing. `--IN` indicates that the source intensity distribution is matched to the target intensity distribution, once at the beginning of the registration.
+The comma separated lists above represent parameters per level, and the number of resolution levels run by MSM can be controlled by the length of the lists specified here. Registration may also be initialised using an affine alignment step, run as an additional level at the beginning. Therefore, the above case is stating that the registration should run one affine step using: SSD as a similarity measure, 50 iterations, input mesh smoothing 2mm, reference mesh smoothing 2mm, on a data grid of resolution 2562 vertices; Following this discrete optimisation is run over 3 levels with 3 iterations at each level, using control point grid resolutions 162, 642, and 2562, where the sampling grid resolution is 2 subdivisions above this, and the data grids have resolution: 2562, 10242 and 40962 vertices. Smoothing is applied to the source image as 4, 2, then 1mm sigma smoothing kernels, and to the reference image as 2, 1 and 1mm smoothing. `--IN` indicates that the source intensity distribution is matched to the target intensity distribution using histogram matching, once at the beginning of the registration.
 
-If you choose to edit or optimise the config files then it is important to remember that all multiresolution level parameter lists must have the same length, else the program will throw the following error:
-
-```
-MeshREG ERROR:: config file parameter list lengths are inconsistent
-```
+If you choose to edit or optimise the config files then it is important to remember that all multiresolution level parameter lists must have the same length, else the program will throw the error: `MeshREG ERROR:: config file parameter list lengths are inconsistent`.
 
 In addition, as affine registration only implements the following parameters: `--opt`, `--simval`, `--it`, `--sigma_in`, `--sigma_ref`, `--IN`, `--VN`, `--scale`, `--excl`, for all other multi level parameters, it is necessary to supply a zero value for the AFFINE stage (see example line `--lambda` first parameter).
 
@@ -280,7 +271,7 @@ In addition, as affine registration only implements the following parameters: `-
 
 In this tutorial, we will guide you through a series of steps to show you how the groupwise mode of MSM works. We will use examples from the HCP dataset, so you should have a few subjects' data downloaded and surfaces reconstructed (with e.g., HCP minimal processing pipeline or Freesurfer).
 
-As a demonstration, to assist the process, we provide pipeline scripts that can be found at https://github.com/rbesenczi/newMSM/tree/main/gMSM_scripts/gMSM_tutorial. In this, the gw_MSM.sh script prepares the data, performs registration and post-processes the results. The input of the script is a clustering CSV file that contains a list of subject IDs and corresponding group IDs as demonstrated in the following example (in the CSV \<line_number, subject ID, group ID\>):
+As a demonstration, to assist the process, we provide pipeline scripts that can be found at [GitHub](https://github.com/rbesenczi/newMSM/tree/main/gMSM_scripts/gMSM_tutorial). In this, the `gw_MSM.sh` script prepares the data, performs registration and post-processes the results. The input of the script is a clustering CSV file that contains a list of subject IDs and corresponding group IDs as demonstrated in the following example (CSV header:\<line_number, subject ID, group ID\>):
 
 ```bash
 1,212419.R,NODE1910
@@ -295,7 +286,7 @@ As a demonstration, to assist the process, we provide pipeline scripts that can 
 ...
 ```
 
-NODE1910 and NODE1951 are groups that contain subjects 212419.R, 127933.R, etc.
+`NODE1910` and `NODE1951` are groups that contain subjects `212419.R`, `127933.R`, etc.
 
 In the bash script file you can set:
 - the input folder where your data resides,
@@ -329,7 +320,7 @@ time $HOME/fsldev/bin/newmsm \
   --verbose --groupwise
 ```
 
-There are a few differences that you should consider when you set your config files. In general, you might need to set the regularisation (lambda) somewhat higher than in typical MSM. In the case of sulcal depth or curvature, this means somewhere between 0.2-0.5. All similarity metrics are available, but we recommend using the Pearson's correlation coefficient (simval=2). For the optimiser, only HOCR is available (MCMC is being developed) and triclique likelihood, the rescaleL option and anatomical mesh regularisation are not available (so use regoption=3). Also note that AFFINE registration is not available at the moment, so it is advised to perform affine alignment separately to a template before groupwise registration (usually this step is done before clustering). Parallelisation is available. As a new option, `--fixnan` can change NaN values to 1e7, providing more stability to the FastPD optimiser.
+There are a few differences that you should consider when you set your config files. In general, you might need to set the regularisation (`lambda`) somewhat higher than in typical MSM. In the case of sulcal depth or curvature, this means somewhere between 0.2-0.5. All similarity metrics are available, but we recommend using the Pearson's correlation coefficient (`simval=2`). For the optimiser, only HOCR is available (MCMC is being developed) and triclique likelihood, the rescaleL option and anatomical mesh regularisation are not available (so use `regoption=3`). Also note that AFFINE registration is not available at the moment, so it is advised to perform affine alignment separately to a template before groupwise registration (usually this step is done before clustering). Parallelisation is available. As a new option, `--fixnan` can change `NaN` values to `1e7`, providing more stability to the FastPD optimiser.
 
 An example config file:
 
@@ -370,7 +361,7 @@ The figures below illustrate the output of the pipeline. First figure (from top 
 
 ![image](/images/newmsm/gw_example_charts.png){:class="img-responsive" width="100%"}
 
-As an optional step, we show how we compared gMSM results with typical registration. For this we provide the typical_MSM.sh and compare_stats.py scripts. The typical_MSM script performs "typical" registration (i.e. individual subject to template), so you will need to choose a template. In the script provided, this template is `MSMStrain.L.sulc.curv.ico6.shape.gii`. After registering all the subjects in the specified group to the same template, we generate the mean, standard deviation and areal and shape distortion maps, just as we did with the groupwise results. After this, the compare_stats.py script calculates cross-correlation similarity (pairwise average), DICE overlap ratio (percentile can be changed, .75 is the default) and different areal and shape distortion statistics, as shown below for NODE2078:
+As an optional step, we show how we compared gMSM results with typical registration. For this we provide the `typical_MSM.sh` and `compare_stats.py` scripts. The typical_MSM script performs "typical" registration (i.e. individual subject to template), so you will need to choose a template. In the script provided, this template is `MSMStrain.L.sulc.curv.ico6.shape.gii`. After registering all the subjects in the specified group to the same template, we generate the mean, standard deviation and areal and shape distortion maps, just as we did with the groupwise results. After this, the `compare_stats.py` script calculates cross-correlation similarity (pairwise average), DICE overlap ratio (percentile can be changed, .75 is the default) and different areal and shape distortion statistics, as shown below for NODE2078:
 
 ```
     Stats for group NODE2078
@@ -383,5 +374,4 @@ As an optional step, we show how we compared gMSM results with typical registrat
     Distortion
         Areal mean: 0.2604; Areal Max: 1.209; Areal 95%: 0.587; Areal 98%: 0.6701; Shape mean: 0.544; Shape Max: 1.801
         Areal mean: 0.1707; Areal Max: 0.6959; Areal 95%: 0.3755; Areal 98%: 0.4272; Shape mean: 0.4109; Shape Max: 1.69
-
 ```
