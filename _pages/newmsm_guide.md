@@ -1,62 +1,77 @@
----
-title: "METRICS Lab - newMSM User's guide"
-layout: textlay
-excerpt: "METRICS Lab -- newMSM"
-sitemap: false
-permalink: /newMSM/guide
----
 # New Multimodal Surface Matching - newMSM
 
-Multimodal Surface Matching (MSM) is an advanced tool for cortical surface mapping, which has been shown to outperform competing methods for the alignment of multimodal data, proving fundamental to the development of the Human Connectome Project's Multimodal Parcellation of the Human Cerebral Cortex (cite paper!). MSM has been developed and tested using FreeSurfer extracted surfaces, however, in principle the tool will work with any cortical surface extraction method provided the surfaces can be mapped to the sphere. The key advantage of the method is that alignment may be driven using a wide variety of univariate (sulcal depth, curvature, myelin), multivariate (Task fMRI, or Resting State Networks) or multimodal (combinations of folding, myelin and fMRI) feature sets. Although there is already support for use of this method via a page on the FSL website, this does not include usage guidance for the advanced features of MSM introduced in the 2018 paper. This includes the support of much smoother and biologically plausible warps of noisy data such as fMRI and regularisation of warps between cortical anatomy.
+Multimodal Surface Matching (MSM) is an advanced tool for cortical surface mapping, which has been shown to outperform competing methods for the alignment of multimodal data. MSM has been developed and tested using FreeSurfer extracted surfaces, however, in principle the tool will work with any cortical surface extraction method provided the surfaces can be mapped to the sphere. The key advantage of the method is that alignment may be driven using a wide variety of univariate (sulcal depth, curvature, myelin), multivariate (Task fMRI, or Resting State Networks) or multimodal (combinations of folding, myelin and fMRI) feature sets.
 
 The main MSM tool is currently run from the command line using the program `newmsm`. This enables fast alignment of spherical cortical surfaces by utilising discrete optimisation framework, which significantly reduces the search space of possible deformations for each vertex, and allows flexibility with regards to the choice of similarity metric used to match the images.
 
-NewMSM is a new implementation with several improvements that made the MSM method computationally more efficient. Improvements include a completely re-implemented mesh resampling library with a new nearest neighbour search algorithm (octree search), an option for multicore CPU utilisation and several other improvements. In general, the average runtime of a registration process is now 25% of that of the original MSM implementation (and 5% using multicore CPU utilisation). The operation of newMSM is supposed to be the same as the previous MSM implementation. We notify the user about any changes that have been made in adequate command line messages. NewMSM now contains an implementation of a groupwise surface registration method that is described later in this guide. The original implementation can be found [here](https://github.com/ecr05/MSM_HOCR/).
+NewMSM is a new implementation with several improvements that made the MSM method computationally more efficient. Improvements include a completely re-implemented mesh resampling library with a new nearest neighbour search algorithm (octree search), an option for multicore CPU utilisation and several others. In general, the average runtime of a registration process is now 25% of that of the original MSM implementation (and 5% using multicore CPU utilisation). The operation of newMSM is supposed to be the same as the previous MSM implementation. We notify the user about any changes that have been made in adequate command line messages. NewMSM now contains an implementation of a groupwise surface registration method that is described later in this guide. The original implementation can be found [here](https://github.com/ecr05/MSM_HOCR/). Installation instruction can be found [here](https://github.com/rbesenczi/newMSM/install.md).
 
 ## Referencing
 
-If you wish to use this tool, please reference our paper in any resulting publication.
+If you wish to use MSM, please reference our papers in any resulting publication.
 
-> Emma C. Robinson, Saad Jbabdi, Matthew F. Glasser, Jesper Andersson, Gregory C. Burgess, Michael P. Harms, Stephen M. Smith, David C. Van Essen, Mark Jenkinson, MSM: A new flexible framework for Multimodal Surface Matching, NeuroImage, Volume 100, 2014, Pages 414-426, ISSN 1053-8119, https://doi.org/10.1016/j.neuroimage.2014.05.069.
+> Emma C. Robinson, Saad Jbabdi, Matthew F. Glasser, Jesper Andersson, Gregory C. Burgess, Michael P. Harms, Stephen M. Smith, David C. Van Essen, Mark Jenkinson, MSM: A new flexible framework for Multimodal Surface Matching, NeuroImage, Volume 100, 2014, Pages 414-426, ISSN 1053-8119, [https://doi.org/10.1016/j.neuroimage.2014.05.069](https://doi.org/10.1016/j.neuroimage.2014.05.069).
 
 
-> N. Komodakis and G. Tziritas, Approximate Labeling via Graph Cuts Based on Linear Programming, in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 29, no. 8, pp. 1436-1453, Aug. 2007, https://doi.org/10.1109/TPAMI.2007.1061. 
+> N. Komodakis and G. Tziritas, Approximate Labeling via Graph Cuts Based on Linear Programming, in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 29, no. 8, pp. 1436-1453, Aug. 2007, [https://doi.org/10.1109/TPAMI.2007.1061](https://doi.org/10.1109/TPAMI.2007.1061). 
 
-For those using the HCP pipelines and/or newMSM with Higher Order Smoothness Constraints, please also reference:
+For those using the HCP pipelines and/or MSM with Higher Order Smoothness Constraints, please also reference:
 
-> Emma C. Robinson, Kara Garcia, Matthew F. Glasser, Zhengdao Chen, Timothy S. Coalson, Antonios Makropoulos, Jelena Bozek, Robert Wright, Andreas Schuh, Matthew Webster, Jana Hutter, Anthony Price, Lucilio Cordero Grande, Emer Hughes, Nora Tusor, Philip V. Bayly, David C. Van Essen, Stephen M. Smith, A. David Edwards, Joseph Hajnal, Mark Jenkinson, Ben Glocker, Daniel Rueckert, Multimodal surface matching with higher-order smoothness constraints, NeuroImage, Volume 167, 2018, Pages 453-465, ISSN 1053-8119, https://doi.org/10.1016/j.neuroimage.2017.10.037.
+> Emma C. Robinson, Kara Garcia, Matthew F. Glasser, Zhengdao Chen, Timothy S. Coalson, Antonios Makropoulos, Jelena Bozek, Robert Wright, Andreas Schuh, Matthew Webster, Jana Hutter, Anthony Price, Lucilio Cordero Grande, Emer Hughes, Nora Tusor, Philip V. Bayly, David C. Van Essen, Stephen M. Smith, A. David Edwards, Joseph Hajnal, Mark Jenkinson, Ben Glocker, Daniel Rueckert, Multimodal surface matching with higher-order smoothness constraints, NeuroImage, Volume 167, 2018, Pages 453-465, ISSN 1053-8119, [https://doi.org/10.1016/j.neuroimage.2017.10.037](https://doi.org/10.1016/j.neuroimage.2017.10.037).
 
 > Ishikawa, Hiroshi. Higher-order clique reduction without auxiliary variables, In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp. 1362-1369. 2014.
 
-> Matthew F. Glasser, Stamatios N. Sotiropoulos, J. Anthony Wilson, Timothy S. Coalson, Bruce Fischl, Jesper L. Andersson, Junqian Xu, Saad Jbabdi, Matthew Webster, Jonathan R. Polimeni, David C. Van Essen, Mark Jenkinson, The minimal preprocessing pipelines for the Human Connectome Project, NeuroImage, Volume 80, 2013, Pages 105-124, ISSN 1053-8119, https://doi.org/10.1016/j.neuroimage.2013.04.127.
+> Matthew F. Glasser, Stamatios N. Sotiropoulos, J. Anthony Wilson, Timothy S. Coalson, Bruce Fischl, Jesper L. Andersson, Junqian Xu, Saad Jbabdi, Matthew Webster, Jonathan R. Polimeni, David C. Van Essen, Mark Jenkinson, The minimal preprocessing pipelines for the Human Connectome Project, NeuroImage, Volume 80, 2013, Pages 105-124, ISSN 1053-8119, [https://doi.org/10.1016/j.neuroimage.2013.04.127](https://doi.org/10.1016/j.neuroimage.2013.04.127).
 
 If you use the groupwise method, please also reference:
 
-> Besenczi, R., Guo, Y., Robinson, E.C. (2024). High Performance Groupwise Cortical Surface Registration with Multimodal Surface Matching. In: Modat, M., Simpson, I., Špiclin, Ž., Bastiaansen, W., Hering, A., Mok, T.C.W. (eds) Biomedical Image Registration. WBIR 2024. Lecture Notes in Computer Science, vol 15249. Springer, Cham. https://doi.org/10.1007/978-3-031-73480-9_25
+> Besenczi, R., Guo, Y., Robinson, E.C. (2024). High Performance Groupwise Cortical Surface Registration with Multimodal Surface Matching. In: Modat, M., Simpson, I., Špiclin, Ž., Bastiaansen, W., Hering, A., Mok, T.C.W. (eds) Biomedical Image Registration. WBIR 2024. Lecture Notes in Computer Science, vol 15249. Springer, Cham. [https://doi.org/10.1007/978-3-031-73480-9_25](https://doi.org/10.1007/978-3-031-73480-9_25)
 
 ## Method fundamentals
 
-As mentioned above MSM matches two spherical surfaces known as the input and reference (groupwise MSM works in a different way, see Groupwise MSM section). Registration is performed by warping a low resolution regular Control Point (CP) Grid. At each iteration of the registration, every control point is deformed independently according to one of a small set of local rotations. The endpoints of these rotations are defined by a set of evenly spaced points (labels) that surround the control point, which are determined by placing a higher resolution Sampling Grid over each CP. This warp is then propagated to the (higher resolution) input mesh using mesh interpolation.
+As mentioned above MSM matches two spherical surfaces known as the input and reference (groupwise MSM works in a different way, see Groupwise MSM section). Registration is performed by warping a low resolution regular Control Point (CP) Grid. At each iteration of the registration, every control point is deformed independently according to one of a small set of local rotations. The endpoints of these rotations are defined by a set of evenly spaced points (labels) that surround the control point, which are determined by placing a higher resolution Sampling Grid over each CP. MSM mappings are learnt though discrete optimisation. This means, rather than allowing a control-point grid vertex to displace continuously to any new location (at each iteration) it is instead constrained to displace to one of a finite set of end points, as shown in the diagram below. This warp is then propagated to the (higher resolution) input mesh using mesh interpolation.
 
 ![image](/images/newmsm/msm_sphericalframework.jpg){:class="img-responsive" width="75%"}
-
-Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular template surfaces known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
-
-An important characteristic of the MSM framework is that the registration is performed over a series of stages. The registration can be initialised using an affine alignment step that should be able to correct global transformation differences between images. It then proceeds over a series of discrete registration steps where the resolution of the control point grid (that warps the input surface) is increased at each stage. At each stage of the discrete registration the registration performs a series of iterations, where control points are deformed as described above. Thus the registration proceeds in a coarse to fine fashion, where if large deformations are required to align the two surfaces these will be corrected for in the early stages of the registration and the final steps are for alignment of fine detail. For more details please see our NeuroImage paper.
-
-The discrete cost function is as follows:
-$latex COST=\sum_{c1 \in C_D} c(\mathbf{l}_{c1}) + \lambda \sum_{c2 \in C_R } V(\mathbf{l}_{c2})$
-This is a Markov Random Field (MRF) cost which seeks to assign labels to each data point so as to maximise some estimate of data likelihood whilst penalising sharp changes in labelling points between neighbouring points. Thus, $latex c(\mathbf{l}_{c1})$ is the similarity for some image patch (or clique $latex c1$). And $latex V(\mathbf{l}_{c2})$ is the smoothness penalty for clique $latex c2$. We will discuss cliques in more detail later but for now let's assume, as done in the original version of the algorithm that $latex c1$ is a univariate and just represents some similarity around a control point $latex p$.
 
 The number of faces in an icosahedron is 20 and subsampling this gives rise to high resolution representations of a sphere that are used for controlling the grid spacing. Serial subsampling leads to polyhedra with the following number of faces: 42, 162, 642, 2562, 10242, 40962. These correspond to the codes: 1, 2, 3, 4, 5, 6. Below are examples of codes 0 (icosahedron), 1 and 2 in the first row and 4 and 5 in the second row.
 
 ![image](/images/newmsm/msm_grids.jpg){:class="img-responsive" width="100%"}
 
-## The Human Connectome Project - visualisation software and file formats
+Choice of label (and therefore local deformation) is dependent on the similarity of the input and reference mesh features following the proposed warp. Therefore, for each control point, an overlapping patch from the input mesh is transformed according to each local rotation, and its similarity with the reference features at that position is assessed. The optimal label choice balances the desire for optimal image matching with a requirement that the deformation should be as smooth as possible. Note, rather than using the full feature sets, data is typically downsampled and smoothed onto regular template surfaces known as the datagrid as we find this speeds computation without appreciably downgrading the quality of the alignment.
+
+An important characteristic of the MSM framework is that the registration is performed over a series of stages. The registration can be initialised using an affine alignment step that should be able to correct global transformation differences between images. It then proceeds over a series of discrete registration steps where the resolution of the control point grid (that warps the input surface) is increased at each stage. At each stage of the discrete registration the registration performs a series of iterations, where control points are deformed as described above. Thus the registration proceeds in a coarse to fine fashion, where if large deformations are required to align the two surfaces these will be corrected for in the early stages of the registration and the final steps are for alignment of fine detail.
+
+### Optimisation
+
+The discrete cost function is as follows:
+
+$$\mathit{E}(G) = \min \sum_{\mathbf{p} \in G} \rho_{p} (l_{p}) + \lambda \sum_{\mathbf{p} \in G} \sum_{\mathbf{q,r} \in N(p)} W_{pqr} (l_{p},l_{q},l_{r})$$
+
+This is a Markov Random Field (MRF) cost which seeks to assign labels to each data point so as to maximise some estimate of data likelihood whilst penalising sharp changes in labelling points between neighbouring points. Thus, the cost function balances a data similarity term, $`\rho_{p} (l_{p})`$, which estimates the overlap of features for that proposed move, with a regularisation penalty, $`W_{pqr} (l_{p},l_r,l_s)`$, which penalises the hyper-elastic strain energy of the resulting deformation (described in detail later).
+
+Most often for MSM similarity is assessed through cross-correlations, either for overlapping image patches, or (if you are using multiple feature maps) an average of correlations of feature vectors at each corresponding point in space.
+
+When finally estimated discrete displacements of the control point grid are then upsampled (or interpolated) to the original sphere using barycentric interpolation to get the final warp.
+
+### Cliques
+
+In discrete optimisation cliques are groups of data points, for example they can be single $`\{p\}`$, pairs $`\{p,q\}`$, triplets $`\{p,q,r\}`$ or higher orders. In MSM the highest we go to is 3 and this reflect triplets of points, reflecting the vertex corners of each triangular face in the mesh.
+
+In the first version of MSM (pre-2018) the highest order of clique considered is two. This reflects the fact that standard discrete optimisation libraries optimise MRFs where the maximum clique size is two (pairs); this is largely due to the significant computational challenges involved in programming approximations that work for such increasingly complex combinatorial problems. The issue with this is it only allows first-order smoothness penalties - i.e. you can only look at the rate of change of displacement between neighbouring points $\{p,q\}$. Most successful modern registration aim to penalise second order effects using, for example, bending energy penalties.
+
+### MSM_HOCR regularisation
+
+HOCR stands for Higher Order Clique Reduction, which is based on work done by Hiroshi Ishikawa ([Ishikawa, 2014](https://ieeexplore.ieee.org/document/6909573)) in which algorithms were proposed which reduce higher (than 2) order clique terms to a linear combination of pairwise and univariate terms through polynomial approximation. This allows higher-order MRFs to be solved with standard MRF solvers such as Fast-PD (as used by the original MSM). This allows MSM to move from using a fairly weak pairwise penalty to a tri-order biomechanical strain based regularisation:
+
+$$\mathbf{W_{pqr}}=\frac{\mu}{2}(R^k+R^{-k}-2)+\frac{\kappa}{2}(J^k + J^{-k} - 2)$$
+
+This penalises both scale $`J=\lambda_2\lambda_2`$ and shape $`R=\lambda_1/\lambda_2`$ distortions of the triangles of the control-point mesh, where $`\lambda_1`$ and $`\lambda_2`$ are the principal stretches (or eigenvalues of the 2D deformation tensor $`\mathbf{F_{pqr}}`$ and the bulk ($`\kappa`$) and shear ($`\mu`$) moduli are parameters which weight the relative importance of the two terms.
+
+### The Human Connectome Project - visualisation software and file formats
 
 The [HCP consortium](http://www.humanconnectome.org/) provide a suite of surface processing and visualisation tools that can be used very effectively together with MSM. In particular these tools refine the FreeSurfer pipeline, and supply pipelines for directly mapping functional and diffusion data onto the surface. Surfaces are supplied in CIFTI and GIFTI formats and can be visualised using the very flexible HCP visualisation tool `wb_view`. Scripts for processing your data following the HCP pipeline can be found at [here](http://www.humanconnectome.org/documentation/HCP-pipelines/). If your data does not conform to the HCP protocol, specifically you have no T2 or different task protocols, please contact the [FSL mailing list](https://fsl.fmrib.ox.ac.uk/fsl/docs/#/support).
 
-# Getting started
+## Getting started
 
 Prior to running MSM you will need to have passed your data through a surface extraction and inflation pipeline such as FreeSurfer, or the HCP minimal processing pipeline. This is because, if MSM is to work for your data you must have cortical surface meshes that have been mapped to the sphere. In addition, you will require a data file for each mesh, where the data may be scalar (such as sulcal depth, curvature or myelin features) or multivariate (RSNs or fMRI task maps).
 
@@ -97,7 +112,7 @@ The most relevant outputs of MSM are:
 
 where GIFTI outputs are used here only as examples. The program also supports output as ASCII and VTK using the command line option `-f`.
 
-# Template spaces
+### Template spaces
 
 For cortical surface alignment it is common practice to align to a population average template space. For adults there are two prominent examples: the FreeSurfer `fsaverage` mesh and the `FS_LR164k` and `FS_LR32k` spaces for the HCP. The `FS_LR164k` population average space is based upon `fsaverage` but has right and left vertex equivalence (it is symmetric). The `FS_LR32k` surface is a downsampled version of this for f/dMRI processing.
 
@@ -127,11 +142,11 @@ The important thing to take away here is that the HCP provides spheres aligned u
 
 These should not be required, other than for comparisons of results to FreeSurfer-based processing pipelines.
 
-# Advanced Command Line Features
+### Advanced Command Line Features
 
 In addition to the required inputs to newmsm, there are several useful options. The most important of these is the `--conf` call that allows users to supply a configuration file which modifies key parameters of the registration. For optimal running of the registration a configuration file should be supplied (parameters are described in more detail below).
 
-## Combining Warps
+### Combining Warps
 
 Another very useful feature is the `--trans` option. This allows users to specify the output mesh from a previous registration stage. For example, if you wished to initialise registration of some other Native space features (such as myelin maps) by first aligning coarse folding structure using sulcal maps (as performed in our NeuroImage paper), you could run registration in two stages as:
 
@@ -158,22 +173,22 @@ Another very useful feature is the `--trans` option. This allows users to specif
 
 Running registration in this way, rather than simply taking the output from the sulc registration and using it as an input mesh for the RSN registration, allows distortions for all the stages combined (e.g. sulc + myelin here) to be penalised during alignment.
 
-## File Formats
+### File Formats
 
 The output file format is controlled by the `-f`/`--format` option and the options are: GIFTI (surfaces are saved as `.surf.gii` and data as `.func.gii`); ASCII (surfaces are saved as `.asc` and data is saved as `.dpv`); ASCII-MAT (surfaces are saved as `.asc` and data is saved as a simple matrix in a textfile `.txt`); VTK (surfaces as `.vtk` and data as `.txt`). For more details on the `.dpv` format (which is FreeSurfer compatible, but differentiates surface from data files) please see [this blog post](http://brainder.org/2011/09/25/braindering-with-ascii-files/).
 
-## Costfunction Weighting
+### Costfunction Weighting
 
 Costfunction weighting (CFw) can be controlled using `--inweight` and `--refweight` options. This allows you to supply a weighting mask for each of your source and reference meshes, although it is possible to run newmsm with only one. The CFw masks can be multivariate which allows you to vary the contribution of different features. For example in the _Multimodal alignment_ section of our paper we use a single, multivariate CFw mask created on our template image (and therefore passed as a `--refweight` option) to vary the contribution of our different modalities to the registration.
 
-## Other command line options
+### Other command line options
 
 - `--verbose` option prints diagnostic messages.
 - `--debug` run debugging with more diagnostic messages.
 - `--help` prints all command line options.
 - `--printoptions` prints all configuration options.
 
-## Example
+### Example
 
 Therefore, with all command line parameters used a newmsm call might look like this:
 
@@ -193,15 +208,42 @@ newmsm \
 
 This will repeat Step 2 above, but this time each of the meshes will have a corresponding weighting function supplied in the form of a GIFTI `.func.gii` (but this could also be `.shape.gii`, `.asc` or as matrix in a text file); the output of the registration will also be smoothed using a kernel of standard deviation 2. The registration will be stopped after two cycles or registration levels irrespective of the number of levels specified in the configuration file.
 
-# Anatomical MSM
+### Anatomical MSM
 
-# Groupwise MSM
+Strain based regularisation has proved extremely vital for improving quality of alignment for noisy datasets such as fMRI. However, this is not it's only benefit. It can also be used to indirectly infer a smoothed and regularised mapping of the cortical anatomy.
+
+Here, warps continue to be inferred between source and targets spheres (SSS and TSS) via displacements of points to discrete locations defined on the sphere. However, due to one-to-one correspondence between vertices for each subject's sphere and (white/pial/midthickness) surface, it means it is possible to infer an anatomical warp (SAS, DAS) by projecting the moving surface mesh topology (SAS) onto the target anatomical surface (TAS) shape, using the location of source vertices (shown in yellow) relative to target vertices (shown in pink: TSS) to perform the weighted (barycentric) resampling. This leads to a deformed configuration of the source anatomy (DAS) where the 2D transformations ($`\mathbf{F_{pqr}}`$) of mesh faces (from SAS-DAS) can then be regularised using biomechanical strain ($`\mathbf{W_{pqr}}`$).
+
+![image](/images/newmsm/amsm.jpg){:class="img-responsive" width="50%"}
+
+If you seek to run aMSM and penalise anatomical deformations you might consider the following options:
+
+- `--anatgrid` - this uses a downsampled version of the anatomical grid to estimate the distortions $`{F_{pqr}}`$. The downsampled meshes are estimaed through projection of different icospheric mesh resolutions onto the anatomical surface. We found that going lower than ico 3 downgraded performance and advise starting with 4.
+
+In general the command line calls will remain exactly the same. The exception being when you want to run aMSM. Here, you need to supply the input and target cortical anatomy files using the `--inanat`and `--refanat` options. Here, the anatomy can be the white, pial, midthickness (or even inflated) surfaces. Each will place different constraints on the alignment. An example call to aMSM is as follows:
+
+```bash
+newmsm \
+    --inmesh=input_sphere.surf.gii \
+    --refmesh=ref_sphere.surf.gii \
+    --inanat=input_midthickness.surf.gii \
+    --refanat=ref_midthickness.surf.gii \
+    --indata=in_data.func.gii \
+    --refdata=ref_data.func.gii \
+    --out=~/mydirname/L. \
+    --conf=aMSM_strainconf \
+    --verbose
+```
+
+For more guidance on the impact of parameter choices for aMSM, and guidance on applying to your data please refer [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5991912). If you are expressly interested in Biomechanical modelling, detailed optimisation and configuration guidance is supplied in the supplementary information of [Garcia et al, 2018](https://www.pnas.org/content/pnas/suppl/2018/03/02/1715451115.DCSupplemental/pnas.201715451SI.pdf), where aMSM was used to build a model of cortical growth in preterm neonates.
+
+### Groupwise MSM
 
 We extended the existing MSM framework to perform groupwise registration by simultaneously co-registering clusters of surfaces, which share common modes of cortical variation. Let's say, there exist n moving meshes for any given cluster; each input surface is therefore associated with its own low-resolution CP grid. For each iteration, the groupwise registration must choose the optimal discrete displacement for all CP grid by comparing the overlap of features, across all inputs, for the set of proposed moves. For each CP grid, this involves calculating the similarity between overlapping patches of features, defined around each of its CP vertices, and all overlapping patches defined for neighbouring vertices in all other CP grids. These are defined by propagating the proposed mapping to the resolution of the input feature maps, and resampling all data to a common reference frame (F) to calculate patch overlap. Here F is defined from a high resolution icospheric tessellation (ico6 - 40,962 vertices), and features are resampled using adaptive barycentric interpolation. Regularisation is then implemented by calculating the hyper-elastic strain of every proposed move on all subjects' CP grid.
 
 ![image](/images/newmsm/gw_method_flow.png){:class="img-responsive" width="100%"}
 
-# Configuration Files
+### Configuration Files
 
 Configuration files modify all tunable parameters of the registration. For a full list of all registration parameters you can enter: `newmsm -p`
 
@@ -226,11 +268,11 @@ Other parameters need only be specified once:
  - `--regoption` used to set the regulariser. Only strain based regularisation is available. Set this value to 3 for typical and groupwise MSM and 5 for anatomical MSM.
  - `--dopt` used to select optimiser. Possible values are `FastPD` or `HOCR`. As an experimental feature, `MCMC` can be selected.
  - `--triclique` option to calculate correlation on mesh face triangle patches instead of circular patches around a CP grid vertex.
- - `--shearmod` shear modulus. See regularisation section in 2018 NeurImage paper.
- - `--bulkmod` bulk modulus. See regularisation section in 2018 NeurImage paper.
+ - `--shearmod` shear modulus and
+ - `--bulkmod` bulk modulus. Investigations in the [2018 MSM paper](https://doi.org/10.1016/j.neuroimage.2017.10.037) showed that a) this default parametrisation worked for adult and neonatal brains and b) the method was robust to a range of choices of values. There should be no reason to change from these default values unless you want to do advanced biomechanical modelling of the type described in [Garcia et al, 2018](https://www.pnas.org/content/115/12/3156).
  - `--k_exponent` k exponent. See regularisation section in 2018 NeurImage paper.
  - `--regexp` regularisation exponent. See regularisation section in 2018 NeurImage paper.
- - `--rescaleL` you can set this option the rescale labels between iterations.
+ - `--rescaleL` this argument updates the discrete label space at each iteration to allow more thorough sampling of the entire space (for more details see [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5991912/). It makes the process run slower but improves performance.
  - `--cprange` increase or decrease the range of sampling from the control point.
  - `--stepsize` affine registration parameter.
  - `--gradsampling` affine registration parameter.
@@ -269,9 +311,9 @@ If you choose to edit or optimise the config files then it is important to remem
 
 In addition, as affine registration only implements the following parameters: `--opt`, `--simval`, `--it`, `--sigma_in`, `--sigma_ref`, `--IN`, `--VN`, `--scale`, `--excl`, for all other multi level parameters, it is necessary to supply a zero value for the AFFINE stage (see example line `--lambda` first parameter).
 
-# Use cases
+## Use cases
 
-## Groupwise registration
+### Groupwise registration
 
 In this tutorial, we will guide you through a series of steps to show you how the groupwise mode of MSM works. We will use examples from the HCP dataset, so you should have a few subjects' data downloaded and surfaces reconstructed (with e.g., HCP minimal processing pipeline or Freesurfer).
 
