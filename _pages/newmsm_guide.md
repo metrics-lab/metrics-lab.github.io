@@ -1,3 +1,10 @@
+---
+title: "METRICS Lab - newMSM User's guide"
+layout: textlay
+excerpt: "METRICS Lab -- newMSM"
+sitemap: false
+permalink: /newMSM/guide
+---
 # New Multimodal Surface Matching - newMSM
 
 Multimodal Surface Matching (MSM) is an advanced tool for cortical surface mapping, which has been shown to outperform competing methods for the alignment of multimodal data. MSM has been developed and tested using FreeSurfer extracted surfaces, however, in principle the tool will work with any cortical surface extraction method provided the surfaces can be mapped to the sphere. The key advantage of the method is that alignment may be driven using a wide variety of univariate (sulcal depth, curvature, myelin), multivariate (Task fMRI, or Resting State Networks) or multimodal (combinations of folding, myelin and fMRI) feature sets.
