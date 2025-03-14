@@ -12,7 +12,7 @@ Multimodal Surface Matching (MSM) is an advanced tool for cortical surface mappi
 
 The main MSM tool is currently run from the command line using the program `newmsm`. This enables fast alignment of spherical cortical surfaces by utilising discrete optimisation framework, which significantly reduces the search space of possible deformations for each vertex, and allows flexibility with regards to the choice of similarity metric used to match the images.
 
-NewMSM is a new implementation with several improvements that made the MSM method computationally more efficient. Improvements include a completely re-implemented mesh resampling library with a new nearest neighbour search algorithm (octree search), an option for multicore CPU utilisation and several others. In general, the average runtime of a registration process is now 25% of that of the original MSM implementation (and 5% using multicore CPU utilisation). The operation of newMSM is supposed to be the same as the previous MSM implementation. We notify the user about any changes that have been made in adequate command line messages. NewMSM now contains an implementation of a groupwise surface registration method that is described later in this guide.
+NewMSM is a new implementation with several improvements that made the MSM method computationally more efficient. Improvements include a completely re-implemented mesh resampling library with a new nearest neighbour search algorithm (octree search), an option for multicore CPU utilisation and several others. In general, the average runtime of a registration process is now 25% of that of the original MSM implementation (and 5% using multicore CPU utilisation). The operation of newMSM is supposed to be the same as the previous MSM implementation. We notify the user about any changes that have been made in adequate command line messages. NewMSM now contains an implementation of a groupwise surface registration method that is described in the links below.
 
 NewMSM GitHub [repository](https://github.com/rbesenczi/newMSM).
 
@@ -32,7 +32,9 @@ Most of the code from the original version has been replaced, but some were reus
 
 As a new feature, groupwise cortical surface registration is now available. Please see our [user's guide](https://github.com/rbesenczi/newMSM/blob/main/docs/guide.md) for more information.
 
-Please note, the current version is 0.8.0-BETA. All feedbacks are much appreciated.
+Please note, the current version is v1.0.
+
+All feedbacks are much appreciated.
 
 ## Referencing
 
